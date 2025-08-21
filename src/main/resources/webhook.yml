@@ -1,0 +1,294 @@
+# AntiEscape Discord Webhook Configuration
+# Plugin: https://orcunozturk.com
+
+# Available Variables (use these in descriptions, titles, field values, etc.):
+# %player% - Player name
+# %target% - Target player name (for control events)
+# %controller% - Controller/admin name (for control events)
+# %message% - Chat message content
+# %command% - Executed command
+# %from% - Starting location (format: world,x,y,z)
+# %to% - Ending location (format: world,x,y,z)
+# %location% - Current player location (format: world,x,y,z)
+# %damage% - Damage amount
+# %attacker% - Attacker player name
+# %victim% - Victim player name
+# %item% - Item name
+# %version% - Plugin version
+
+# Discord Webhook Settings
+discord:
+    enabled: false # Enable/disable Discord webhook system (true/false)
+    webhook-url: "YOUR_WEBHOOK_URL_HERE" # Discord webhook URL
+    bot-name: "AntiEscape Bot" # Bot name
+    bot-avatar: "https://orcunozturk.com/logo.png" # Bot avatar URL
+    
+    # Event types - each can be enabled/disabled separately
+    events:
+        control: true # Control events (start, end, escape)
+        movement: false # Movement events
+        commands: false # Command events
+        chat: false # Chat events
+        damage: false # Damage events
+        items: false # Item events
+        security: true # Security events (bans, violations)
+
+# Discord Embed Settings
+embeds:
+    # General embed settings
+    general:
+        color: "#FF6B6B" # Default embed color (hex format)
+        timestamp: true # Show timestamp (true/false)
+        footer: true # Show footer (true/false)
+        thumbnail: true # Show thumbnail (true/false)
+    
+    # Control events embed settings
+    control:
+        start:
+            color: "#FF6B6B" # Red
+            title: "🔒 Control Started"
+            description: "**%target%** was put under control by **%controller%**"
+            thumbnail: "https://orcunozturk.com/control-start.png"
+            fields:
+                - name: "Target Player"
+                  value: "%target%"
+                  inline: true
+                - name: "Controller"
+                  value: "%controller%"
+                  inline: true
+            footer:
+                text: "AntiEscape Control System"
+                icon_url: "https://orcunozturk.com/logo.png"
+        
+        end:
+            color: "#00FF00" # Green
+            title: "✅ Control Released"
+            description: "**%target%** was released by **%controller%**"
+            thumbnail: "https://orcunozturk.com/control-end.png"
+            fields:
+                - name: "Target Player"
+                  value: "%target%"
+                  inline: true
+                - name: "Controller"
+                  value: "%controller%"
+                  inline: true
+            footer:
+                text: "AntiEscape Control System"
+                icon_url: "https://orcunozturk.com/logo.png"
+        
+        ban:
+            color: "#FF0000" # Dark red
+            title: "🔨 Player Banned"
+            description: "**%target%** was banned by **%controller%** for cheating"
+            thumbnail: "https://orcunozturk.com/ban.png"
+            fields:
+                - name: "Banned Player"
+                  value: "%target%"
+                  inline: true
+                - name: "Admin"
+                  value: "%controller%"
+                  inline: true
+                - name: "Reason"
+                  value: "Cheat Control Failed"
+                  inline: true
+            footer:
+                text: "AntiEscape Ban System"
+                icon_url: "https://orcunozturk.com/logo.png"
+        
+        escape:
+            color: "#FFA500" # Orange
+            title: "🚨 Control Escape"
+            description: "**%player%** escaped control from **%controller%**"
+            thumbnail: "https://orcunozturk.com/escape.png"
+            fields:
+                - name: "Escaped Player"
+                  value: "%player%"
+                  inline: true
+                - name: "Controller"
+                  value: "%controller%"
+                  inline: true
+                - name: "Action"
+                  value: "Auto-Banned"
+                  inline: true
+            footer:
+                text: "AntiEscape Escape Detection"
+                icon_url: "https://orcunozturk.com/logo.png"
+    
+    # Movement events embed settings
+    movement:
+        color: "#4169E1" # Blue
+        title: "🚶 Player Movement"
+        description: "**%player%** moved to a new location"
+        thumbnail: "https://orcunozturk.com/movement.png"
+        fields:
+            - name: "Player"
+              value: "%player%"
+              inline: true
+            - name: "From"
+              value: "`%from%`"
+              inline: false
+            - name: "To"
+              value: "`%to%`"
+              inline: false
+        footer:
+            text: "AntiEscape Movement Logger"
+            icon_url: "https://orcunozturk.com/logo.png"
+    
+    # Command events embed settings
+    commands:
+        color: "#9370DB" # Purple
+        title: "⌨️ Command Executed"
+        description: "**%player%** executed a command"
+        thumbnail: "https://orcunozturk.com/command.png"
+        fields:
+            - name: "Player"
+              value: "%player%"
+              inline: true
+            - name: "Command"
+              value: "`%command%`"
+              inline: false
+        footer:
+            text: "AntiEscape Command Logger"
+            icon_url: "https://orcunozturk.com/logo.png"
+    
+    # Chat events embed settings
+    chat:
+        color: "#32CD32" # Light green
+        title: "💬 Chat Message"
+        description: "**%player%** sent a message"
+        thumbnail: "https://orcunozturk.com/chat.png"
+        fields:
+            - name: "Player"
+              value: "%player%"
+              inline: true
+            - name: "Message"
+              value: "%message%"
+              inline: false
+        footer:
+            text: "AntiEscape Chat Logger"
+            icon_url: "https://orcunozturk.com/logo.png"
+    
+    # Damage events embed settings
+    damage:
+        color: "#DC143C" # Crimson
+        title: "⚔️ Damage Event"
+        description: "**%attacker%** attacked **%victim%**"
+        thumbnail: "https://orcunozturk.com/damage.png"
+        fields:
+            - name: "Attacker"
+              value: "%attacker%"
+              inline: true
+            - name: "Victim"
+              value: "%victim%"
+              inline: true
+            - name: "Damage"
+              value: "**%damage%**"
+              inline: true
+        footer:
+            text: "AntiEscape Damage Logger"
+            icon_url: "https://orcunozturk.com/logo.png"
+    
+    # Item events embed settings
+    items:
+        color: "#FFD700" # Gold
+        title: "📦 Item Drop"
+        description: "**%player%** dropped an item"
+        thumbnail: "https://orcunozturk.com/item.png"
+        fields:
+            - name: "Player"
+              value: "%player%"
+              inline: true
+            - name: "Item"
+              value: "**%item%**"
+              inline: true
+            - name: "Location"
+              value: "`%location%`"
+              inline: false
+        footer:
+            text: "AntiEscape Item Logger"
+            icon_url: "https://orcunozturk.com/logo.png"
+    
+    # Test embed settings
+    test:
+        color: "#00CED1" # Dark turquoise
+        title: "✅ Discord Webhook Test"
+        description: "Discord webhook system is working correctly!"
+        thumbnail: "https://orcunozturk.com/test.png"
+        fields:
+            - name: "Status"
+              value: "🟢 Online"
+              inline: true
+            - name: "Version"
+              value: "%version%"
+              inline: true
+        footer:
+            text: "AntiEscape Discord System"
+            icon_url: "https://orcunozturk.com/logo.png"
+        content: "🎉 **Discord webhook test successful!**"
+
+    # Security events embed settings
+    security:
+        ban:
+            color: "#FF0000" # Red
+            title: "🚨 Security Violation"
+            description: "**%player%** was automatically banned for security violation"
+            thumbnail: "https://orcunozturk.com/security-ban.png"
+            fields:
+                - name: "Banned Player"
+                  value: "%player%"
+                  inline: true
+                - name: "Reason"
+                  value: "%reason%"
+                  inline: true
+                - name: "Action"
+                  value: "Auto-Ban"
+                  inline: true
+            footer:
+                text: "AntiEscape Security System"
+                icon_url: "https://orcunozturk.com/logo.png"
+
+# Message formats (legacy system - for backward compatibility)
+messages:
+    control:
+        start:
+            title: "🔒 Control Started"
+            description: "**%target%** was put under control by **%controller%**"
+        end:
+            title: "✅ Released"
+            description: "**%target%** was released by **%controller%**"
+        ban:
+            title: "🔨 Banned"
+            description: "**%target%** was banned by **%controller%**"
+        escape:
+            title: "🚨 Control Escape"
+            description: "**%player%** escaped control from **%controller%**"
+    
+    movement:
+        title: "🚶 Player Movement"
+        description: "**%player%** moved from `%from%` to `%to%`"
+    
+    commands:
+        title: "⌨️ Command Executed"
+        description: "**%player%** executed: `%command%`"
+    
+    chat:
+        title: "💬 Chat Message"
+        description: "**%player%**: %message%"
+    
+    damage:
+        title: "⚔️ Damage Event"
+        description: "**%attacker%** attacked **%victim%** for **%damage%** damage"
+    
+    items:
+        title: "📦 Item Drop"
+        description: "**%player%** dropped: **%item%**"
+    
+    test:
+        title: "✅ Discord Webhook Test"
+        description: "Discord webhook system is working correctly!"
+        content: "🎉 **Discord webhook test successful!**"
+
+# Footer settings (legacy system - for backward compatibility)
+footer:
+    text: "AntiEscape Control System"
+    icon_url: "https://orcunozturk.com/logo.png" 

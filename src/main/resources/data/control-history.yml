@@ -1,0 +1,16 @@
+# AntiEscape Plugin - Control History Data File
+# This file stores control session history for the advanced control system
+# Format: player_name.history: [list of control sessions]
+
+# Example structure:
+# player_name:
+#   history:
+#     - controller: "AdminName"
+#       target: "PlayerName"
+#       startTime: "2024-01-01 12:00:00"
+#       endTime: "2024-01-01 13:00:00"
+#       duration: 3600000
+#       banned: false
+
+# History is automatically saved when control sessions end
+# Each entry includes controller, target, start/end times, duration, and ban status 

@@ -1,0 +1,233 @@
+# AntiEscape Plugin Language File
+# Language: Turkish
+
+# General Messages
+no-permission: "&cBu komutu kullanmak için yetkiniz yok!"
+invalid-argument: "&cGeçersiz argüman! Yardım için /control help kullanın."
+
+# No Prefix Messages (for status displays)
+no-prefix:
+  yes: "Evet"
+  no: "Hayır"
+  unknown: "Bilinmiyor"
+  whitelisted: "Whitelist'te"
+  not-whitelisted: "Whitelist'te Değil"
+  controlled: "Kontrolde"
+  not-controlled: "Kontrolde Değil"
+  banned: "Yasaklandı"
+  released: "Serbest Bırakıldı"
+  no-history: "Kontrol geçmişi bulunamadı"
+  no-notes: "Not bulunamadı"
+
+# Advanced Control Messages
+advanced-control-note-added: "&aNot başarıyla eklendi!"
+advanced-control-notes-cleared: "&aNotlar başarıyla temizlendi!"
+advanced-control-history-record: "&7%index%. &f%controller% &7→ &f%target% &7(%start_date% - %end_date%) &f%status%"
+advanced-control-player-not-found: "&cOyuncu bulunamadı: %player%"
+advanced-control-usage-history: "&cKullanım: /control history <player>"
+advanced-control-usage-notes: "&cKullanım: /control notes <add/clear/list> <player> [note]"
+advanced-control-usage-stats: "&cKullanım: /control stats <player>"
+advanced-control-usage-notes-add: "&cKullanım: /control notes add <player> <note>"
+
+# Security Messages
+whitelist-added: "&aOyuncu whitelist'e eklendi: %player%"
+whitelist-removed: "&aOyuncu whitelist'ten kaldırıldı: %player%"
+suspicious-cleared: "&a%player% için şüpheli aktivite temizlendi"
+violations-cleared: "&a%player% için ihlal sayısı temizlendi"
+ip-no-players: "&7Bu IP'de oyuncu bulunamadı."
+
+# Security Usage Messages
+whitelist-usage-add: "&cKullanım: /control whitelist add <oyuncu> [sebep]"
+whitelist-usage-remove: "&cKullanım: /control whitelist remove <oyuncu>"
+suspicious-usage: "&cKullanım: /control suspicious <oyuncu> [clear]"
+violations-usage: "&cKullanım: /control violations <oyuncu> [clear]"
+ip-usage: "&cKullanım: /control ip <ip>"
+
+# Security Status Lists
+whitelist-status-list:
+  - "&8&m----------&r &8[ &eWhitelist Durumu &8] &8&m----------&r"
+  - "&7Oyuncu: &f%player%"
+  - "&7Whitelist'te: &f%status%"
+  - "&7Ekleyen: &f%admin%"
+
+suspicious-status-list:
+  - "&8&m----------&r &8[ &eŞüpheli Aktivite &8] &8&m----------&r"
+  - "&7Oyuncu: &f%player%"
+  - "&7Sayı: &f%count%"
+
+violations-status-list:
+  - "&8&m----------&r &8[ &eİhlal Sayısı &8] &8&m----------&r"
+  - "&7Oyuncu: &f%player%"
+  - "&7İhlaller: &f%count%"
+  - "&7Son Ban Süresi: &f%last_ban%"
+
+ip-info-list:
+  - "&8&m----------&r &8[ &eIP Bilgisi &8] &8&m----------&r"
+  - "&7IP Adresi: &f%ip%"
+  - "&7Oyuncular: &f%count%"
+
+# Log Messages
+log-files-enabled: "&7%type%: &aAktif"
+log-files-disabled: "&7%type%: &cPasif"
+log-files-cleared: "&aLog dosyası '%type%' başarıyla temizlendi!"
+log-files-all-cleared: "&aTüm log dosyaları başarıyla temizlendi!"
+log-files-usage: "&cKullanım: /control logs clear <type>"
+log-files-types: "&7Türler: moves, commands, chat, damage, items, control, general"
+
+# Discord Messages
+discord-disabled: "&cDiscord webhook webhook.yml'de devre dışı"
+discord-url-not-set: "&cLütfen Discord webhook URL'ini webhook.yml'de ayarlayın"
+discord-sending: "&aDiscord webhook test mesajı gönderiliyor..."
+discord-sent: "&aDiscord webhook test mesajı gönderildi!"
+
+# Control Messages
+control-started: "&b%player% &fisimli oyuncu hile kontrolüne alındı!"
+control-finished-clean: "&b%player% &fisimli oyuncu hile kontrolünden temiz çıktı."
+control-finished-ban: "&b%player% &fisimli oyuncu hileden yasaklandı!"
+control-message: "&b%player% &ftarafından hile kontrolüne alındın! Oyundan çıkarsan yasaklanacaksın, lütfen yetkilinin dediklerini uygulayın."
+control-chat: "&7/control chat &ajoin&7/&cleave &7yazarak kontrol sohbetine katılın veya ayrılın."
+control-chat-join: "&fKontrol sohbetine katıldın!"
+control-chat-left: "&fKontrol sohbetinden ayrıldın!"
+already-in-control-chat: "&fZaten kontrol sohbetindesin."
+not-in-control-chat: "&fKontrol sohbetinde değilsin."
+player-joined-control-chat: "&a%player% &7isimli oyuncu kontrol sohbetine katıldı!"
+player-quit-control-chat: "&c%player% &7isimli oyuncu kontrol sohbetinden ayrıldı!"
+control-chat-player-quit: "&c%player% &fisimli oyuncu hile kontrolden kaçtı, kontrol sohbetinden çıkmak için &c/control chat leave &fyazın."
+
+# Error Messages
+error-move: "&cKontrolde olduğun için hareket edemezsin."
+error-drop: "&cKontrolde olduğun yere eşya atamazsın."
+error-damage-victim: "&b%victim% &fisimli oyuncu kontrolde olduğu için vuramazsın!"
+error-damage-attacker-you: "&b%attacker% &fisimli oyuncu sana vurmaya çalıştı fakat kontrolde olduğun için hasar almıyorsun."
+error-command: "&cKontrolde olduğun için komutlar devre dışıdır."
+
+# Player Messages
+no-player: "&cLütfen bir oyuncu adı belirtin!"
+offline-player: "&cOyuncu çevrimiçi değil!"
+control-player-started: "&e%player% &fzaten kontrolde."
+control-player-error: "&cOyuncu kontrolde değil."
+cannot-control-yourself: "&cKendin kontrole alamazsın."
+
+# Location Messages
+control-area-not-set: "&cKontrol alanı ayarlanmamış, lütfen kontrol yeri ayarlayın. /control set area kullanın"
+control-return-not-set: "&cKontrol dönüş konumu ayarlanmamış! /control set return kullanın"
+control-area-already-set: "&cKontrol alanı zaten ayarlanmış! Kaldırmak için /control delete area kullanın"
+control-return-already-set: "&cKontrol dönüş noktası belirlenmiş, lütfen bir önceki dönüş noktası silin. Eski kontrol dönüş noktası silmek için &b/control delete area &cyazarak silebilirsin."
+control-area-set: "&fKontrol alanı belirlendi!"
+control-return-set: "&fKontrol dönüş noktası belirlendi!"
+control-area-deleted: "&fKontrol alanı silindi!"
+control-return-deleted: "&fKontrol dönüş noktası silindi!"
+error-set-arg: "&cNe ayarlamak istediğinizi belirtin! (area/return)"
+error-delete-arg: "&cNe silmek istediğinizi belirtin! (area/spawn)"
+
+# Config Messages
+config-reloaded: "&fYapılandırma ve dil dosyası yeniden yüklendi."
+
+# Commands Help
+commands-help:
+  - "&8&m----------&r &8[ &eAntiEscape Komutları &8] &8&m----------&r"
+  - "&e/control help &7- Bu yardım mesajını göster"
+  - "&e/control version &7- Plugin versiyonu ve bilgilerini göster"
+  - "&e/control reload &7- Plugin yapılandırmasını yeniden yükle"
+  - "&e/control chat <join/leave> &7- Kontrol sohbetine katıl veya ayrıl"
+  - "&e/control take <player> &7- Bir oyuncuyu kontrol altına al"
+  - "&e/control end <player> [ban] &7- Bir oyuncuyu kontrolden serbest bırak veya yasakla"
+  - "&e/control set <area/return> &7- Kontrol alanı veya dönüş konumunu ayarla"
+  - "&e/control delete <area/spawn> &7- Kontrol alanı veya dönüş konumunu sil"
+  - "&e/control discord test &7- Discord webhook'unu test et"
+  - "&e/control logs <list/clear/clear-all> &7- Log dosyalarını yönet"
+  - "&e/control history <player> &7- Kontrol geçmişini göster"
+  - "&e/control notes <player> [add/clear/list] [note] &7- Oyuncu notlarını yönet"
+  - "&e/control stats <player> &7- Oyuncu istatistiklerini göster"
+  - "&e/control whitelist <player> [add/remove] [reason] &7- Whitelist'i yönet"
+  - "&e/control suspicious <player> [clear] &7- Şüpheli aktiviteyi yönet"
+  - "&e/control violations <player> [clear] &7- İhlal sayısını yönet"
+  - "&e/control ip <ip> &7- IP adresindeki oyuncuları göster"
+
+# Advanced Control History
+advanced-control-history-list:
+  - "&8&m----------&r &8[ &eKontrol Geçmişi &8] &8&m----------&r"
+  - "&7Oyuncu: &f%player%"
+  - "&7Toplam Kayıt: &f%count%"
+
+# Advanced Control Notes
+advanced-control-notes-list:
+  - "&8&m----------&r &8[ &eNotlar &8] &8&m----------&r"
+  - "&7Oyuncu: &f%player%"
+
+# Advanced Control Statistics
+advanced-control-stats-list:
+  - "&8&m----------&r &8[ &eİstatistikler &8] &8&m----------&r"
+  - "&7Oyuncu: &f%player%"
+  - "&7Kaçış Denemeleri: &f%escape_attempts%"
+  - "&7Şüpheli Aktiviteler: &f%suspicious_count%"
+  - "&7IP Adresi: &f%ip_address%"
+  - "&7Whitelist'te: &f%whitelist_status%"
+  - "&7Kontrol Durumu: &f%control_status%"
+
+# Security Help
+whitelist-help:
+  - "&8&m----------&r &8[ &eWhitelist Komutları &8] &8&m----------&r"
+  - "&e/control whitelist <oyuncu> &7- Whitelist durumunu göster"
+  - "&e/control whitelist add <oyuncu> [sebep] &7- Oyuncuyu whitelist'e ekle"
+  - "&e/control whitelist remove <oyuncu> &7- Oyuncuyu whitelist'ten kaldır"
+
+suspicious-help:
+  - "&8&m----------&r &8[ &eŞüpheli Aktivite Komutları &8] &8&m----------&r"
+  - "&e/control suspicious <oyuncu> &7- Şüpheli aktivite sayısını göster"
+  - "&e/control suspicious <oyuncu> clear &7- Şüpheli aktivite sayısını temizle"
+
+violations-help:
+  - "&8&m----------&r &8[ &eİhlal Komutları &8] &8&m----------&r"
+  - "&e/control violations <oyuncu> &7- İhlal sayısını göster"
+  - "&e/control violations <oyuncu> clear &7- İhlal sayısını temizle"
+
+ip-help:
+  - "&8&m----------&r &8[ &eIP Komutları &8] &8&m----------&r"
+  - "&e/control ip <ip> &7- IP adresindeki oyuncuları göster"
+
+# Logs Help
+logs-help:
+  - "&8&m----------&r &8[ &eLog Yönetimi Komutları &8] &8&m----------&r"
+  - "&e/control logs list &7- Tüm log dosyalarını listele"
+  - "&e/control logs clear <type> &7- Belirli log dosyasını temizle"
+  - "&e/control logs clear-all &7- Tüm log dosyalarını temizle"
+
+# Discord Help
+discord-help:
+  - "&8&m----------&r &8[ &eDiscord Komutları &8] &8&m----------&r"
+  - "&e/control discord test &7- Discord webhook'unu test et"
+
+# Control Help
+control-help:
+  - "&8&m----------&r &8[ &eKontrol Komutları &8] &8&m----------&r"
+  - "&e/control take <player> &7- Bir oyuncuyu kontrol altına al"
+  - "&e/control end <player> [ban] &7- Bir oyuncuyu kontrolden serbest bırak veya yasakla"
+  - "&e/control chat <join/leave> &7- Kontrol sohbetine katıl veya ayrıl"
+
+# Security Help
+whitelist-help:
+  - "&8&m----------&r &8[ &eWhitelist Komutları &8] &8&m----------&r"
+  - "&e/control whitelist <oyuncu> &7- Whitelist durumunu göster"
+  - "&e/control whitelist add <oyuncu> [sebep] &7- Oyuncuyu whitelist'e ekle"
+  - "&e/control whitelist remove <oyuncu> &7- Oyuncuyu whitelist'ten kaldır"
+
+suspicious-help:
+  - "&8&m----------&r &8[ &eŞüpheli Aktivite Komutları &8] &8&m----------&r"
+  - "&e/control suspicious <oyuncu> &7- Şüpheli aktivite sayısını göster"
+  - "&e/control suspicious <oyuncu> clear &7- Şüpheli aktivite sayısını temizle"
+
+violations-help:
+  - "&8&m----------&r &8[ &eİhlal Komutları &8] &8&m----------&r"
+  - "&e/control violations <oyuncu> &7- İhlal sayısını göster"
+  - "&e/control violations <oyuncu> clear &7- İhlal sayısını temizle"
+
+ip-help:
+  - "&8&m----------&r &8[ &eIP Komutları &8] &8&m----------&r"
+  - "&e/control ip <ip> &7- IP adresindeki oyuncuları göster"
+
+# Location Help
+location-help:
+  - "&8&m----------&r &8[ &eKonum Komutları &8] &8&m----------&r"
+  - "&e/control set <area/return> &7- Kontrol alanı veya dönüş konumunu ayarla"
+  - "&e/control delete <area/spawn> &7- Kontrol alanı veya dönüş konumunu sil" 

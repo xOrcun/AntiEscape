@@ -1,0 +1,185 @@
+# AntiEscape Plugin Configuration
+# Plugin: https://orcunozturk.com
+
+# Prefix Settings
+prefix: "&6ᴀɴᴛɪᴇѕᴄᴀᴘᴇ &8▸ &7"
+
+# Control Chat Settings
+control-prefix: "&8[&cControl Chat&8]&r &f%player%&7: &f%message%"
+
+# Location Settings
+control-location: "none"
+control-spawn-location: "none"
+
+# Language Settings
+language: "en" # Language selection (en, tr, etc.)
+
+# Debug Settings
+debug: false # Enable/disable debug messages in console (true/false)
+
+# Log Settings
+logging:
+    enabled: true # Enable/disable log system (true/false)
+    
+    # Log file settings
+    files:
+        moves: "logs/antiescape-moves.log" # Movement log file
+        commands: "logs/antiescape-commands.log" # Command log file
+        chat: "logs/antiescape-chat.log" # Chat log file
+        damage: "logs/antiescape-damage.log" # Damage log file
+        items: "logs/antiescape-items.log" # Item log file
+        control: "logs/antiescape-control.log" # Control events log file
+        general: "logs/antiescape-general.log" # General events log file
+    
+    # Log types - each can be enabled/disabled separately
+    log-moves: true # Movement logs (true/false)
+    log-commands: true # Command logs (true/false)
+    log-chat: true # Chat logs (true/false)
+    log-damage: true # Damage logs (true/false)
+    log-items: true # Item logs (true/false)
+    log-control: true # Control events logs (true/false)
+    log-general: true # General events logs (true/false)
+    
+    # Log format settings
+    format:
+        timestamp: true # Include timestamp in logs (true/false)
+        player-info: true # Include player information (true/false)
+        location-info: true # Include location information (true/false)
+        detailed-info: true # Include detailed information (true/false)
+    
+    # Log rotation settings
+    rotation:
+        enabled: true # Enable log rotation (true/false)
+        max-size: "10MB" # Maximum file size before rotation
+        max-files: 5 # Maximum number of backup files to keep
+        compress: true # Compress old log files (true/false)
+
+# Advanced Control System Settings
+advanced-control:
+    enabled: true # Enable/disable advanced control system (true/false)
+    
+    # Control time limits
+    time-limits:
+        enabled: true # Enable control time limits (true/false)
+        max-duration: 3600 # Maximum control duration in seconds (1 hour)
+        warning-time: 300 # Warning time before auto-release (5 minutes)
+        auto-release: true # Auto-release when time limit is reached (true/false)
+    
+    # Control history
+    history:
+        enabled: true # Enable control history tracking (true/false)
+        max-entries: 1000 # Maximum history entries per player
+        save-to-file: true # Save history to file (true/false)
+        history-file: "data/control-history.yml" # History file path
+    
+    # Control statistics
+    statistics:
+        enabled: true # Enable control statistics (true/false)
+        track-duration: true # Track control durations (true/false)
+        track-escapes: true # Track escape attempts (true/false)
+        track-controllers: true # Track controller activity (true/false)
+    
+    # Control notes system
+    notes:
+        enabled: true # Enable control notes system (true/false)
+        max-notes: 10 # Maximum notes per player
+        note-length: 200 # Maximum note length
+    
+    # Control notifications
+    notifications:
+        enabled: true # Enable advanced notifications (true/false)
+        action-bar: true # Show action bar notifications (true/false)
+        title: true # Show title notifications (true/false)
+        sound: true # Play sound effects (true/false)
+        particles: true # Show particle effects (true/false)
+        boss-bar: true # Show boss bar (true/false)
+
+# Advanced Security System Settings
+advanced-security:
+    enabled: true # Enable/disable advanced security system (true/false)
+    
+    # IP Address Control
+    ip-control:
+        enabled: true # Enable IP address control (true/false)
+        check-on-join: true # Check IP on player join (true/false)
+        check-on-control: true # Check IP when starting control (true/false)
+        allowed-countries: [] # List of allowed country codes (empty = all)
+        blocked-countries: [] # List of blocked country codes
+        max-accounts-per-ip: 3 # Maximum accounts per IP address
+    
+    # VPN/Proxy Detection
+    vpn-detection:
+        enabled: false # Enable VPN/Proxy detection (true/false)
+        api-key: "" # API key for VPN detection service
+        block-vpn: false # Block VPN/Proxy connections (true/false)
+        warn-vpn: false # Warn about VPN/Proxy usage (true/false)
+        allowed-vpn: [] # List of allowed VPN providers
+    
+    # Suspicious Activity Detection
+    suspicious-activity:
+        enabled: false # Enable suspicious activity detection (true/false)
+        rapid-movement: true # Detect rapid movement patterns (true/false)
+        rapid-commands: true # Detect rapid command usage (true/false)
+        rapid-chat: true # Detect rapid chat messages (true/false)
+        threshold: 5 # Number of actions before flagging as suspicious
+        time-window: 10 # Time window in seconds for suspicious activity
+    
+    # Auto Ban System
+    auto-ban:
+        enabled: true # Enable automatic ban system (true/false)
+        escape-attempts: 3 # Number of escape attempts before auto-ban
+        suspicious-activity: 5 # Number of suspicious activities before auto-ban
+        vpn-usage: 1 # Number of VPN detections before auto-ban
+        
+        # Normal ban settings (for security violations)
+        normal-ban:
+            duration: "1d" # Ban duration for normal violations (1d, 1w, 1m, 1y, permanent)
+            reason: "Security violation detected" # Ban reason for normal violations
+        
+        # Escape ban settings (when player quits during control)
+        escape-ban:
+            duration: "7d" # Ban duration for escape attempts (1d, 1w, 1m, 1y, permanent)
+            reason: "Escape attempt during control" # Ban reason for escape attempts
+        
+        # Ban command template
+        ban-command: "tempban %player% %duration% %reason%" # Available variables: %player%, %duration%, %reason%
+        
+        permanent-format: "permanent" # Permanent ban format for your ban plugin (permanent, perm, -1, 0, infinity, forever)
+        
+        # Advanced auto-ban settings
+        notify-admins: true # Notify all online admins when auto-ban occurs
+        log-to-console: true # Log auto-ban actions to console
+        discord-webhook: true # Send Discord webhook for auto-ban events
+        
+        # Ban escalation (increase ban duration for repeat offenders)
+        escalation:
+            enabled: true # Enable ban duration escalation
+            multiplier: 2 # Multiply ban duration for each violation
+            max-duration: "1m" # Maximum ban duration (1m = 1 month, 1y = 1 year)
+    
+    # Whitelist System
+    whitelist:
+        enabled: true # Enable whitelist system (true/false)
+        bypass-security: true # Whitelisted players bypass security checks (true/false)
+        bypass-control: false # Whitelisted players can't be controlled (true/false)
+        whitelist-file: "data/whitelist.yml" # Whitelist file path
+    
+    # Security Logging
+    security-logging:
+        enabled: true # Enable security logging (true/false)
+        log-suspicious: true # Log suspicious activities (true/false)
+        log-vpn: true # Log VPN detections (true/false)
+        log-ip-changes: true # Log IP address changes (true/false)
+        security-file: "logs/security.log" # Security log file path
+
+# Permission Settings
+permissions:
+    general: antiescape.general
+    chat: antiescape.chat
+    update-notify: antiescape.update.notify
+
+# Update Settings
+check-update: true
+
+# Plugin Version
+version: ${project.version}

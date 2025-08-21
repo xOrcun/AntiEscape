@@ -1,0 +1,11 @@
+name: AntiEscape
+version: '${project.version}'
+main: org.xorcun.antiescape.AntiEscape
+api-version: '1.16'
+author: xOrcun
+website: orcunozturk.com
+description: Anti Escape, which allows players to be controlled by authorities
+commands:
+  control:
+    description: The main command for AntiEscape is /control
+    usage: /control help

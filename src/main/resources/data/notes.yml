@@ -1,0 +1,12 @@
+# AntiEscape Plugin - Player Notes Data File
+# This file stores player notes for the advanced control system
+# Format: player_name.notes: [list of notes]
+
+# Example structure:
+# player_name:
+#   notes:
+#     - "[2024-01-01 12:00:00] First note about player"
+#     - "[2024-01-02 15:30:00] Second note about player"
+
+# Notes are automatically saved when added or cleared via commands
+# Each note includes a timestamp and the note content 

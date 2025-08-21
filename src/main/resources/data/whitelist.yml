@@ -1,0 +1,20 @@
+# AntiEscape Plugin - Whitelist Data File
+# This file stores whitelisted players for the advanced security system
+# Format: 
+# player_name:
+#   whitelist: true/false
+#   date: YYYY-MM-DD HH:mm:ss
+#   admin: admin_player_name
+
+# Example structure:
+# AdminName:
+#   whitelist: true
+#   date: "2024-01-01 12:00:00"
+#   admin: "Console"
+# TrustedPlayer:
+#   whitelist: true
+#   date: "2024-01-02 15:30:00"
+#   admin: "Moderator"
+
+# Whitelist is automatically saved when players are added or removed
+# Each entry includes the player name, whitelist status, date, and admin who added them 
