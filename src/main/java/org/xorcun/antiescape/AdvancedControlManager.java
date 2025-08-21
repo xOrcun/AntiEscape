@@ -109,9 +109,8 @@ public class AdvancedControlManager {
                 
                 controlHistory.put(playerName, history);
                 
-                // Notes yükle
                 List<String> notes = historyConfig.getStringList(playerName + ".notes");
-                // Notes için UUID gerekli, oyuncu adından UUID bul
+
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     if (onlinePlayer.getName().equals(playerName)) {
                         playerNotes.put(onlinePlayer.getUniqueId(), notes);
@@ -132,7 +131,6 @@ public class AdvancedControlManager {
             try {
                 List<String> notes = notesConfig.getStringList(playerName + ".notes");
                 
-                // Notes için UUID gerekli, oyuncu adından UUID bul
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     if (onlinePlayer.getName().equals(playerName)) {
                         playerNotes.put(onlinePlayer.getUniqueId(), notes);
@@ -183,7 +181,6 @@ public class AdvancedControlManager {
                 UUID playerUUID = entry.getKey();
                 List<String> notes = entry.getValue();
                 
-                // UUID'den oyuncu adını bul
                 String playerName = null;
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     if (onlinePlayer.getUniqueId().equals(playerUUID)) {
@@ -192,7 +189,6 @@ public class AdvancedControlManager {
                     }
                 }
                 
-                // Eğer oyuncu online değilse, UUID'yi string olarak kullan
                 if (playerName == null) {
                     playerName = playerUUID.toString();
                 }
@@ -212,25 +208,20 @@ public class AdvancedControlManager {
         UUID targetUUID = target.getUniqueId();
         long startTime = System.currentTimeMillis();
         
-        // Kontrol oturumu oluştur
         ControlSession session = new ControlSession(controller.getUniqueId(), startTime);
         controlSessions.put(targetUUID, session);
         
-        // Kaçış denemelerini sıfırla
         escapeAttempts.put(targetUUID, 0);
         
-        // Boss bar oluştur
         if (plugin.getConfig().getBoolean("advanced-control.notifications.boss-bar", true)) {
             createBossBar(target);
         }
         
-        // Uyarı görevini başlat
         if (plugin.getConfig().getBoolean("advanced-control.time-limits.enabled", true)) {
             startWarningTask(target);
             startAutoReleaseTask(target);
         }
         
-        // Bildirimleri göster
         showNotifications(target, "control-start");
         showNotifications(controller, "control-start-controller");
         
@@ -247,20 +238,15 @@ public class AdvancedControlManager {
             long endTime = System.currentTimeMillis();
             long duration = endTime - session.getStartTime();
             
-            // Geçmişe ekle
             addToHistory(session.getController(), target.getName(), session.getStartTime(), endTime, duration, banned);
             
-            // Oturumu temizle
             controlSessions.remove(targetUUID);
             escapeAttempts.remove(targetUUID);
             
-            // Boss bar'ı kaldır
             removeBossBar(target);
             
-            // Görevleri iptal et
             cancelTasks(targetUUID);
             
-            // Bildirimleri göster
             showNotifications(target, "control-end");
             
             plugin.debug("Advanced control session ended: " + target.getName());
@@ -274,12 +260,10 @@ public class AdvancedControlManager {
         int attempts = escapeAttempts.getOrDefault(playerUUID, 0) + 1;
         escapeAttempts.put(playerUUID, attempts);
         
-        // İstatistiklere ekle
         if (plugin.getConfig().getBoolean("advanced-control.statistics.track-escapes", true)) {
             plugin.debug("Escape attempt recorded: " + player.getName() + " (Attempt: " + attempts + ")");
         }
         
-        // Otomatik ban kontrolü
         int maxAttempts = plugin.getConfig().getInt("advanced-security.auto-ban.escape-attempts", 3);
         if (attempts >= maxAttempts) {
             autoBanPlayer(player, "Escape attempts exceeded");
@@ -296,7 +280,7 @@ public class AdvancedControlManager {
         int maxLength = plugin.getConfig().getInt("advanced-control.notes.note-length", 200);
         
         if (notes.size() >= maxNotes) {
-            notes.remove(0); // En eski notu kaldır
+            notes.remove(0); 
         }
         
         if (note.length() > maxLength) {
@@ -307,7 +291,6 @@ public class AdvancedControlManager {
         notes.add(timestampedNote);
         playerNotes.put(playerUUID, notes);
         
-        // Notları kaydet
         saveNotes();
         
         plugin.debug("Note added: " + player.getName() + " - " + note);
@@ -316,7 +299,6 @@ public class AdvancedControlManager {
     public void addNote(String playerName, String note) {
         if (!plugin.getConfig().getBoolean("advanced-control.notes.enabled", true)) return;
         
-        // Oyuncu adından UUID bul
         UUID playerUUID = null;
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (onlinePlayer.getName().equals(playerName)) {
@@ -326,7 +308,7 @@ public class AdvancedControlManager {
         }
         
         if (playerUUID == null) {
-            // Oyuncu online değilse, notes.yml'ye direkt ekle
+
             if (notesConfig != null) {
                 List<String> notes = notesConfig.getStringList(playerName + ".notes");
                 
@@ -334,7 +316,7 @@ public class AdvancedControlManager {
                 int maxLength = plugin.getConfig().getInt("advanced-control.notes.note-length", 200);
                 
                 if (notes.size() >= maxNotes) {
-                    notes.remove(0); // En eski notu kaldır
+                    notes.remove(0); 
                 }
                 
                 if (note.length() > maxLength) {
@@ -356,14 +338,13 @@ public class AdvancedControlManager {
             return;
         }
         
-        // Online oyuncu için normal işlem
         List<String> notes = playerNotes.getOrDefault(playerUUID, new ArrayList<>());
         
         int maxNotes = plugin.getConfig().getInt("advanced-control.notes.max-notes", 10);
         int maxLength = plugin.getConfig().getInt("advanced-control.notes.note-length", 200);
         
         if (notes.size() >= maxNotes) {
-            notes.remove(0); // En eski notu kaldır
+            notes.remove(0);
         }
         
         if (note.length() > maxLength) {
@@ -374,7 +355,6 @@ public class AdvancedControlManager {
         notes.add(timestampedNote);
         playerNotes.put(playerUUID, notes);
         
-        // Notları kaydet
         saveNotes();
         
         plugin.debug("Note added: " + playerName + " - " + note);
@@ -385,14 +365,14 @@ public class AdvancedControlManager {
     }
 
     public List<String> getNotes(String playerName) {
-        // Oyuncu adından UUID bul
+
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (onlinePlayer.getName().equals(playerName)) {
                 return playerNotes.getOrDefault(onlinePlayer.getUniqueId(), new ArrayList<>());
             }
         }
         
-        // Eğer oyuncu online değilse, notes.yml'den yükle
+
         if (notesConfig != null) {
             return notesConfig.getStringList(playerName + ".notes");
         }
@@ -403,14 +383,14 @@ public class AdvancedControlManager {
     public void clearNotes(Player player) {
         playerNotes.remove(player.getUniqueId());
         
-        // Notları kaydet
+
         saveNotes();
         
         plugin.debug("Notes cleared: " + player.getName());
     }
 
     public void clearNotes(String playerName) {
-        // Oyuncu adından UUID bul
+
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (onlinePlayer.getName().equals(playerName)) {
                 playerNotes.remove(onlinePlayer.getUniqueId());
@@ -418,7 +398,7 @@ public class AdvancedControlManager {
             }
         }
         
-        // notes.yml'den de temizle
+
         if (notesConfig != null) {
             notesConfig.set(playerName + ".notes", new ArrayList<>());
             try {
@@ -440,12 +420,12 @@ public class AdvancedControlManager {
     }
 
     public List<ControlHistory> getControlHistory(UUID playerUUID) {
-        // UUID'yi string'e çevir
+
         return controlHistory.getOrDefault(playerUUID.toString(), new ArrayList<>());
     }
     
     public List<ControlHistory> getControlHistory(String playerName) {
-        // Oyuncu adına göre history getir
+
         return controlHistory.getOrDefault(playerName, new ArrayList<>());
     }
 
@@ -466,32 +446,32 @@ public class AdvancedControlManager {
         
         long currentTime = System.currentTimeMillis();
         
-        // Kaçış kaydı oluştur
+
         ControlHistory escapeHistory = new ControlHistory(
             controllerName,
             targetName,
-            dateFormat.format(new Date(currentTime - 60000)), // 1 dakika önce (tahmini başlangıç)
+            dateFormat.format(new Date(currentTime - 60000)), 
             dateFormat.format(new Date(currentTime)),
-            60000, // 1 dakika (tahmini süre)
-            true // banned = true (çünkü kaçtı)
+            60000, 
+            true 
         );
         
-        // History'yi oyuncu adına göre sakla
+
         List<ControlHistory> playerHistory = controlHistory.getOrDefault(targetName, new ArrayList<>());
         playerHistory.add(escapeHistory);
         
-        // Maksimum kayıt sayısını kontrol et
+
         int maxEntries = plugin.getConfig().getInt("advanced-control.history.max-entries", 1000);
         if (playerHistory.size() > maxEntries) {
-            playerHistory.remove(0); // En eski kaydı kaldır
+            playerHistory.remove(0); 
         }
         
         controlHistory.put(targetName, playerHistory);
         
-        // History'yi dosyaya kaydet
+
         saveHistory();
         
-        // Debug mesajı
+
         plugin.debug("Escape history added: " + controllerName + " -> " + targetName + " (Player quit while controlled)");
     }
 
@@ -535,12 +515,12 @@ public class AdvancedControlManager {
             @Override
             public void run() {
                 if (plugin.getConfig().getBoolean("advanced-control.time-limits.auto-release", true)) {
-                    // Kontrol eden kişiyi bul
+
                     ControlSession session = controlSessions.get(player.getUniqueId());
                     if (session != null) {
                         Player controller = Bukkit.getPlayer(session.getController());
                         if (controller != null && controller.isOnline()) {
-                            // Kontrolü bitir
+
                             plugin.getServer().dispatchCommand(controller, "control end " + player.getName());
                         }
                     }
@@ -572,7 +552,7 @@ public class AdvancedControlManager {
                     player.sendTitle("§c§lCONTROLLED", "§7You are now under control", 10, 70, 20);
                 }
                 if (plugin.getConfig().getBoolean("advanced-control.notifications.action-bar", true)) {
-                    // Action bar mesajı (1.8+ için)
+
                     player.sendMessage("§c§lYou are now under control!");
                 }
                 if (plugin.getConfig().getBoolean("advanced-control.notifications.sound", true)) {
@@ -615,22 +595,22 @@ public class AdvancedControlManager {
             banned
         );
         
-        // History'yi oyuncu adına göre sakla
+
         List<ControlHistory> playerHistory = controlHistory.getOrDefault(targetName, new ArrayList<>());
         playerHistory.add(history);
         
-        // Maksimum kayıt sayısını kontrol et
+
         int maxEntries = plugin.getConfig().getInt("advanced-control.history.max-entries", 1000);
         if (playerHistory.size() > maxEntries) {
-            playerHistory.remove(0); // En eski kaydı kaldır
+            playerHistory.remove(0); 
         }
         
         controlHistory.put(targetName, playerHistory);
         
-        // History'yi dosyaya kaydet
+
         saveHistory();
         
-        // Debug mesajı
+
         plugin.debug("History added: " + controllerName + " -> " + targetName + " (" + dateFormat.format(new Date(startTime)) + " - " + dateFormat.format(new Date(endTime)) + ")");
     }
 
@@ -648,14 +628,14 @@ public class AdvancedControlManager {
 
     public void onDisable() {
         saveHistory();
-        saveNotes(); // Notları da kaydet
+        saveNotes(); 
         
-        // Tüm boss bar'ları kaldır
+
         for (BossBar bossBar : bossBars.values()) {
             bossBar.removeAll();
         }
         
-        // Tüm görevleri iptal et
+
         for (BukkitTask task : warningTasks.values()) {
             task.cancel();
         }

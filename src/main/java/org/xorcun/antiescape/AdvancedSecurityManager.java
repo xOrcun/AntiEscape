@@ -23,7 +23,7 @@ public class AdvancedSecurityManager {
     private final Map<String, List<Long>> playerActions;
     private final Map<String, Boolean> vpnCache;
     private final Map<String, String> whitelist;
-    private final Map<String, String> whitelistAdmins; // Admin bilgilerini sakla
+    private final Map<String, String> whitelistAdmins; 
     
     // Ban escalation tracking
     private final Map<String, Integer> violationCount;
@@ -42,7 +42,7 @@ public class AdvancedSecurityManager {
         this.playerActions = new ConcurrentHashMap<>();
         this.vpnCache = new ConcurrentHashMap<>();
         this.whitelist = new ConcurrentHashMap<>();
-        this.whitelistAdmins = new ConcurrentHashMap<>(); // Initialize new map
+        this.whitelistAdmins = new ConcurrentHashMap<>(); 
         this.violationCount = new ConcurrentHashMap<>();
         this.lastBanDuration = new ConcurrentHashMap<>();
         this.dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -79,12 +79,12 @@ public class AdvancedSecurityManager {
                 boolean isWhitelisted = whitelistConfig.getBoolean(playerName + ".whitelist", false);
                 if (isWhitelisted) {
                     whitelist.put(playerName.toLowerCase(), "Whitelisted");
-                    // Admin bilgisini yükle
+
                     String admin = whitelistConfig.getString(playerName + ".admin", "Console");
                     whitelistAdmins.put(playerName.toLowerCase(), admin);
                 }
             } else {
-                // Eski format için uyumluluk
+
                 String reason = whitelistConfig.getString(playerName, "Whitelisted");
                 whitelist.put(playerName.toLowerCase(), reason);
                 whitelistAdmins.put(playerName.toLowerCase(), "Console");
@@ -101,11 +101,11 @@ public class AdvancedSecurityManager {
             String playerName = entry.getKey();
             String reason = entry.getValue();
             
-            // Yeni format
+
             whitelistConfig.set(playerName + ".whitelist", true);
             whitelistConfig.set(playerName + ".date", dateFormat.format(new Date()));
             
-            // Admin bilgisini kaydet
+
             String admin = whitelistAdmins.getOrDefault(playerName, "Console");
             whitelistConfig.set(playerName + ".admin", admin);
         }
@@ -123,29 +123,29 @@ public class AdvancedSecurityManager {
         String playerName = player.getName();
         String ipAddress = player.getAddress().getAddress().getHostAddress();
         
-        // IP adresini kaydet
+
         playerToIP.put(playerName, ipAddress);
         
-        // IP'ye oyuncu ekle
+
         ipToPlayers.computeIfAbsent(ipAddress, k -> new ArrayList<>()).add(playerName);
         
-        // Whitelist kontrolü
+
         if (isWhitelisted(playerName)) {
             plugin.debug("Whitelisted player: " + playerName);
             return;
         }
         
-        // IP kontrolü
+
         if (plugin.getConfig().getBoolean("advanced-security.ip-control.check-on-join", true)) {
             checkIPAddress(player, ipAddress);
         }
         
-        // VPN kontrolü
+
         if (plugin.getConfig().getBoolean("advanced-security.vpn-detection.enabled", true)) {
             checkVPNAsync(player, ipAddress);
         }
         
-        // Şüpheli aktivite sayacını sıfırla
+
         suspiciousActivityCount.put(playerName, 0);
         playerActions.put(playerName, new ArrayList<>());
         
@@ -157,7 +157,7 @@ public class AdvancedSecurityManager {
         String ipAddress = playerToIP.get(playerName);
         
         if (ipAddress != null) {
-            // IP'den oyuncuyu kaldır
+
             List<String> players = ipToPlayers.get(ipAddress);
             if (players != null) {
                 players.remove(playerName);
@@ -167,7 +167,7 @@ public class AdvancedSecurityManager {
             }
         }
         
-        // Temizlik
+
         playerToIP.remove(playerName);
         suspiciousActivityCount.remove(playerName);
         playerActions.remove(playerName);
@@ -180,7 +180,7 @@ public class AdvancedSecurityManager {
         String playerName = player.getName();
         long currentTime = System.currentTimeMillis();
         
-        // Oyuncu aksiyonlarını kaydet
+
         List<Long> actions = playerActions.get(playerName);
         if (actions == null) {
             actions = new ArrayList<>();
@@ -189,11 +189,11 @@ public class AdvancedSecurityManager {
         
         actions.add(currentTime);
         
-        // Eski aksiyonları temizle
+
         int timeWindow = plugin.getConfig().getInt("advanced-security.suspicious-activity.time-window", 10) * 1000;
         actions.removeIf(time -> currentTime - time > timeWindow);
         
-        // Şüpheli aktivite kontrolü
+
         int threshold = plugin.getConfig().getInt("advanced-security.suspicious-activity.threshold", 5);
         if (actions.size() >= threshold) {
             handleSuspiciousActivity(player, actionType, actions.size());
@@ -203,7 +203,7 @@ public class AdvancedSecurityManager {
     private void checkIPAddress(Player player, String ipAddress) {
         if (!plugin.getConfig().getBoolean("advanced-security.ip-control.enabled", true)) return;
         
-        // Aynı IP'den gelen oyuncu sayısını kontrol et
+
         List<String> playersOnIP = ipToPlayers.get(ipAddress);
         int maxAccountsPerIP = plugin.getConfig().getInt("advanced-security.ip-control.max-accounts-per-ip", 3);
         
@@ -211,12 +211,12 @@ public class AdvancedSecurityManager {
             handleSecurityViolation(player, "Too many accounts per IP: " + playersOnIP.size());
         }
         
-        // Ülke kontrolü (basit implementasyon)
+
         List<String> blockedCountries = plugin.getConfig().getStringList("advanced-security.ip-control.blocked-countries");
         List<String> allowedCountries = plugin.getConfig().getStringList("advanced-security.ip-control.allowed-countries");
         
         if (!blockedCountries.isEmpty() || !allowedCountries.isEmpty()) {
-            // Burada gerçek bir IP-to-country API kullanılabilir
+
             plugin.debug("Country check: " + player.getName() + " - IP: " + ipAddress);
         }
     }
@@ -230,7 +230,7 @@ public class AdvancedSecurityManager {
             return;
         }
         
-        // Asenkron VPN kontrolü
+
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             boolean isVPN = checkVPNService(ipAddress);
             vpnCache.put(ipAddress, isVPN);
@@ -245,12 +245,12 @@ public class AdvancedSecurityManager {
         String apiKey = plugin.getConfig().getString("advanced-security.vpn-detection.api-key", "");
         
         if (apiKey.isEmpty()) {
-            // API key yoksa basit kontrol
-            return random.nextDouble() < 0.1; // %10 şans VPN
+
+            return random.nextDouble() < 0.1; 
         }
         
         try {
-            // Gerçek VPN API çağrısı burada yapılabilir
+
             URL url = new URL("https://api.vpn-detection-service.com/check?ip=" + ipAddress + "&key=" + apiKey);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -259,8 +259,8 @@ public class AdvancedSecurityManager {
             
             int responseCode = connection.getResponseCode();
             if (responseCode == 200) {
-                // API yanıtını parse et
-                return false; // Şimdilik false döndür
+
+                return false; 
             }
         } catch (Exception e) {
             plugin.debug("VPN check error: " + e.getMessage());
@@ -274,12 +274,11 @@ public class AdvancedSecurityManager {
         
         String playerName = player.getName();
         
-        // VPN kullanımını logla
+
         if (plugin.getConfig().getBoolean("advanced-security.security-logging.log-vpn", true)) {
             plugin.debug("VPN detected: " + playerName + " - IP: " + ipAddress);
         }
         
-        // VPN uyarısı
         if (plugin.getConfig().getBoolean("advanced-security.vpn-detection.warn-vpn", true)) {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                 if (onlinePlayer.hasPermission(plugin.getConfig().getString("permissions.general"))) {
@@ -288,7 +287,6 @@ public class AdvancedSecurityManager {
             }
         }
         
-        // VPN engelleme
         if (plugin.getConfig().getBoolean("advanced-security.vpn-detection.block-vpn", true)) {
             handleSecurityViolation(player, "VPN/Proxy usage detected");
         }
@@ -299,23 +297,20 @@ public class AdvancedSecurityManager {
         
         String playerName = player.getName();
         
-        // Şüpheli aktivite sayacını artır
+
         int currentCount = suspiciousActivityCount.getOrDefault(playerName, 0) + 1;
         suspiciousActivityCount.put(playerName, currentCount);
         
-        // Logla
         if (plugin.getConfig().getBoolean("advanced-security.security-logging.log-suspicious", true)) {
             plugin.debug("Suspicious activity: " + playerName + " - " + actionType + " (Count: " + actionCount + ")");
         }
         
-        // Uyarı gönder
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (onlinePlayer.hasPermission(plugin.getConfig().getString("permissions.general"))) {
                 onlinePlayer.sendMessage("§e[Security] Suspicious activity: " + playerName + " - " + actionType);
             }
         }
         
-        // Otomatik ban kontrolü
         int maxSuspicious = plugin.getConfig().getInt("advanced-security.auto-ban.suspicious-activity", 5);
         if (currentCount >= maxSuspicious) {
             handleSecurityViolation(player, "Suspicious activity threshold exceeded");
@@ -327,38 +322,28 @@ public class AdvancedSecurityManager {
         
         String playerName = player.getName();
         
-        // Logla
         plugin.debug("Security violation: " + playerName + " - Reason: " + reason);
         
-        // Ban escalation hesapla
         int currentViolations = violationCount.getOrDefault(playerName, 0) + 1;
         violationCount.put(playerName, currentViolations);
         
-        // Auto-ban ayarlarını al (NORMAL ban için)
         String baseBanDuration = plugin.getConfig().getString("auto-ban.normal-ban.duration", "1d");
         String banReason = plugin.getConfig().getString("auto-ban.normal-ban.reason", "Security violation detected");
         
-        // Ban escalation hesapla
         String finalBanDuration = calculateBanDuration(playerName, baseBanDuration, currentViolations);
         
-        // Final reason'ı hazırla
         String finalReason = banReason + " (Violation #" + currentViolations + ")";
         
-        // Ban komutunu çalıştır
         String banCommand = plugin.getConfig().getString("ban-command");
         if (banCommand != null && !banCommand.isEmpty()) {
-            // %player%, %duration%, %reason% değişkenlerini değiştir
             
-            // Permanent ban kontrolü
             if (isPermanentDuration(finalBanDuration)) {
-                // Permanent ban için uygun komut formatını kullan
                 String permanentFormat = getPermanentFormat(finalBanDuration);
                 banCommand = banCommand
                     .replace("%player%", playerName)
                     .replace("%duration%", permanentFormat)
                     .replace("%reason%", finalReason);
             } else {
-                // Geçici ban için normal format
                 banCommand = banCommand
                     .replace("%player%", playerName)
                     .replace("%duration%", finalBanDuration)
@@ -368,29 +353,23 @@ public class AdvancedSecurityManager {
             plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), banCommand);
             plugin.debug("Auto-ban command executed: " + banCommand);
         } else {
-            // Eğer ban-command yoksa, varsayılan ban komutu kullan
             String defaultBanCommand;
             if (isPermanentDuration(finalBanDuration)) {
-                // Permanent ban için uygun format
                 String permanentFormat = getPermanentFormat(finalBanDuration);
                 defaultBanCommand = "ban " + playerName + " " + finalReason + " (Violation #" + currentViolations + ")";
             } else {
-                // Geçici ban için tempban
                 defaultBanCommand = "tempban " + playerName + " " + finalBanDuration + " " + finalReason + " (Violation #" + currentViolations + ")";
             }
             plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), defaultBanCommand);
             plugin.debug("Default ban command executed: " + defaultBanCommand);
         }
         
-        // Son ban süresini kaydet
         lastBanDuration.put(playerName, finalBanDuration);
         
-        // Console'a logla
         if (plugin.getConfig().getBoolean("auto-ban.log-to-console", true)) {
             Bukkit.getConsoleSender().sendMessage("§c[Security] Auto-ban: " + playerName + " - Reason: " + reason + " - Duration: " + finalBanDuration + " - Violation #" + currentViolations);
         }
-        
-        // Tüm adminlere bildir
+
         if (plugin.getConfig().getBoolean("auto-ban.notify-admins", true)) {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                 if (onlinePlayer.hasPermission(plugin.getConfig().getString("permissions.general"))) {
@@ -399,13 +378,10 @@ public class AdvancedSecurityManager {
             }
         }
         
-        // Discord webhook gönder (eğer aktifse)
         if (plugin.getConfig().getBoolean("auto-ban.discord-webhook", true)) {
             try {
-                // DiscordManager'a erişim için reflection kullan
                 Object discordManager = plugin.getClass().getDeclaredField("discordManager").get(plugin);
                 if (discordManager != null) {
-                    // sendSecurityBan metodunu çağır
                     discordManager.getClass().getMethod("sendSecurityBan", Player.class, String.class)
                         .invoke(discordManager, player, reason + " (Violation #" + currentViolations + ")");
                 }
@@ -415,25 +391,20 @@ public class AdvancedSecurityManager {
         }
     }
     
-    // Ban escalation hesaplama metodu
     private String calculateBanDuration(String playerName, String baseDuration, int violationCount) {
         if (!plugin.getConfig().getBoolean("auto-ban.escalation.enabled", true)) {
             return baseDuration;
         }
         
-        // İlk ihlal için base duration kullan
         if (violationCount <= 1) {
             return baseDuration;
         }
         
-        // Escalation hesapla
         int multiplier = plugin.getConfig().getInt("auto-ban.escalation.multiplier", 2);
         String maxDuration = plugin.getConfig().getString("auto-ban.escalation.max-duration", "1m");
         
-        // Duration'ı parse et ve çarp
         String escalatedDuration = escalateDuration(baseDuration, violationCount, multiplier);
         
-        // Maksimum süreyi kontrol et
         if (isDurationLonger(escalatedDuration, maxDuration)) {
             return maxDuration;
         }
@@ -441,9 +412,7 @@ public class AdvancedSecurityManager {
         return escalatedDuration;
     }
     
-    // Duration escalation hesaplama
     private String escalateDuration(String baseDuration, int violationCount, int multiplier) {
-        // Evrensel duration parsing (1d, 1w, 1m, 1y gibi)
         if (baseDuration.endsWith("d")) {
             int days = Integer.parseInt(baseDuration.substring(0, baseDuration.length() - 1));
             int escalatedDays = days * (int) Math.pow(multiplier, violationCount - 1);
@@ -461,14 +430,12 @@ public class AdvancedSecurityManager {
             int escalatedYears = years * (int) Math.pow(multiplier, violationCount - 1);
             return escalatedYears + "y";
         } else if (isPermanentDuration(baseDuration)) {
-            return baseDuration; // Permanent format'ı koru
+            return baseDuration; 
         }
         
-        // Bilinmeyen format için base duration döndür
         return baseDuration;
     }
     
-    // Permanent duration kontrolü (farklı plugin'ler için)
     private boolean isPermanentDuration(String duration) {
         String lowerDuration = duration.toLowerCase();
         return lowerDuration.equals("permanent") || 
@@ -479,12 +446,9 @@ public class AdvancedSecurityManager {
                lowerDuration.equals("forever");
     }
     
-    // Permanent duration format'ını plugin'e uygun hale getir
     private String getPermanentFormat(String baseDuration) {
-        // Config'den permanent format'ı al, yoksa varsayılan kullan
         String permanentFormat = plugin.getConfig().getString("auto-ban.permanent-format", "permanent");
         
-        // Eğer base duration zaten permanent ise, format'ı koru
         if (isPermanentDuration(baseDuration)) {
             return permanentFormat;
         }
@@ -492,13 +456,10 @@ public class AdvancedSecurityManager {
         return permanentFormat;
     }
     
-    // Duration karşılaştırma
     private boolean isDurationLonger(String duration1, String duration2) {
-        // Basit karşılaştırma (gerçek uygulamada daha gelişmiş olabilir)
         if (duration1.equalsIgnoreCase("permanent")) return true;
         if (duration2.equalsIgnoreCase("permanent")) return false;
         
-        // Basit sayısal karşılaştırma
         try {
             int val1 = Integer.parseInt(duration1.substring(0, duration1.length() - 1));
             int val2 = Integer.parseInt(duration2.substring(0, duration2.length() - 1));
@@ -506,7 +467,6 @@ public class AdvancedSecurityManager {
             char unit1 = duration1.charAt(duration1.length() - 1);
             char unit2 = duration2.charAt(duration2.length() - 1);
             
-            // Unit'leri güne çevir
             int days1 = convertToDays(val1, unit1);
             int days2 = convertToDays(val2, unit2);
             
@@ -516,7 +476,6 @@ public class AdvancedSecurityManager {
         }
     }
     
-    // Unit'i güne çevir
     private int convertToDays(int value, char unit) {
         switch (unit) {
             case 'd': return value;
@@ -535,13 +494,11 @@ public class AdvancedSecurityManager {
     public void addToWhitelist(String playerName, String reason, String adminName) {
         whitelist.put(playerName.toLowerCase(), reason);
         
-        // Admin bilgisini kaydet
         if (adminName == null || adminName.isEmpty()) {
             adminName = "Console";
         }
         whitelistAdmins.put(playerName.toLowerCase(), adminName);
         
-        // Yeni formatta kaydet
         whitelistConfig.set(playerName + ".whitelist", true);
         whitelistConfig.set(playerName + ".date", dateFormat.format(new Date()));
         whitelistConfig.set(playerName + ".admin", adminName);
@@ -558,13 +515,11 @@ public class AdvancedSecurityManager {
     public void removeFromWhitelist(String playerName, String adminName) {
         whitelist.remove(playerName.toLowerCase());
         
-        // Admin bilgisini güncelle
         if (adminName == null || adminName.isEmpty()) {
             adminName = "Console";
         }
         whitelistAdmins.remove(playerName.toLowerCase());
         
-        // Yeni formatta kaydet
         whitelistConfig.set(playerName + ".whitelist", false);
         whitelistConfig.set(playerName + ".date", dateFormat.format(new Date()));
         whitelistConfig.set(playerName + ".admin", adminName);
@@ -607,7 +562,6 @@ public class AdvancedSecurityManager {
         playerActions.remove(playerName);
     }
     
-    // Violation count metodları
     public int getViolationCount(String playerName) {
         return violationCount.getOrDefault(playerName, 0);
     }
