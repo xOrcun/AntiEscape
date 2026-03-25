@@ -1,11 +1,16 @@
 # AntiEscape Plugin Language File
 # Language: English
 
+# ==========================================
 # General Messages
+# ==========================================
 no-permission: "&cYou don't have permission to use this command!"
-invalid-argument: "&cInvalid argument! Use /control help for help."
+invalid-argument: "&cInvalid argument! Use /%main_command% help for help."
+no-player: "&cPlease specify a player name!"
+offline-player: "&cPlayer is not online!"
+config-reloaded: "&aConfiguration has been reloaded!"
 
-# No Prefix Messages (for status displays)
+# Status Indicators
 no-prefix:
   yes: "Yes"
   no: "No"
@@ -18,32 +23,115 @@ no-prefix:
   released: "Released"
   no-history: "No control history found"
   no-notes: "No notes found"
+  no-reason: "No reason specified"
+  whitelist-empty: "Whitelist is empty."
 
-# Advanced Control Messages
+# ==========================================
+# Control System (Control)
+# ==========================================
+control-started: "&a%player% is now under control!"
+control-finished-clean: "&a%player% has been released from control!"
+control-finished-ban: "&c%player% has been banned for cheating!"
+control-message: "&cYou are now under control by %player%!"
+control-player-started: "&c%player% is already under control!"
+control-player-error: "&c%player% is not under control!"
+cannot-control-yourself: "&cYou cannot control yourself!"
+control-cooldown-error: "&cPlease wait %seconds% seconds before using this command again!"
+
+# Control Titles
+title-control-start: "&c&lCONTROLLED"
+subtitle-control-start: "&7Wait for staff instructions"
+title-control-end: "&a&lRELEASED"
+subtitle-control-end: "&7Control finished successfully"
+
+# Control Chat
+control-chat: "&eYou can use /%main_command% chat join <player> to join a specific control chat!"
+control-chat-join: "&aYou have joined the control chat of %player%!"
+control-chat-left: "&cYou have left the control chat!"
+already-in-control-chat: "&cYou are already in a control chat!"
+not-in-chat: "&cYou are not in a control chat!"
+chat-usage: "&cUsage: /%main_command% chat [join <player> | leave]"
+player-joined-control-chat: "&a%player% has joined the control chat!"
+player-quit-control-chat: "&c%player% has left the control chat!"
+control-chat-player-quit: "&c%player% has left the server while under control!"
+
+# Control Errors
+error-move: "&cYou cannot move while under control!"
+error-drop: "&cYou cannot drop items while under control!"
+error-damage-victim: "&cYou cannot damage %victim% while they are under control!"
+error-damage-attacker-you: "&c%attacker% tried to damage you but you are under control!"
+error-command: "&cYou cannot use commands while under control!"
+
+# Control Management
+advanced-control-player-not-found: "&cPlayer not found: %player%"
 advanced-control-note-added: "&aNote added successfully!"
 advanced-control-notes-cleared: "&aNotes cleared successfully!"
-advanced-control-history-record: "&7%index%. &f%controller% &7→ &f%target% &7(%start_date% - %end_date%) &f%status%"
-advanced-control-player-not-found: "&cPlayer not found: %player%"
-advanced-control-usage-history: "&cUsage: /control history <player>"
-advanced-control-usage-notes: "&cUsage: /control notes <add/clear/list> <player> [note]"
-advanced-control-usage-stats: "&cUsage: /control stats <player>"
-advanced-control-usage-notes-add: "&cUsage: /control notes add <player> <note>"
+advanced-control-history-record: "&7%index%. &f%controller% &7→ &f%target% &7(%start_date% - %end_date%) &a[%duration%] &f%status%"
 
-# Security Messages
-whitelist-added: "&aPlayer added to whitelist: %player%"
+# Control Display Lists
+advanced-control-history-list:
+  - "&8&m----------&r &8[ &eControl History &8] &8&m----------&r"
+  - "&7Player: &f%player%"
+  - "&7Total Records: &f%count%"
+
+advanced-control-notes-list:
+  - "&8&m----------&r &8[ &eNotes &8] &8&m----------&r"
+  - "&7Player: &f%player%"
+
+advanced-control-stats-list:
+  - "&8&m----------&r &8[ &eStatistics &8] &8&m----------&r"
+  - "&7Player: &f%player%"
+  - "&7Escape Attempts: &f%escape_attempts%"
+  - "&7Suspicious Activities: &f%suspicious_count%"
+  - "&7IP Address: &f%ip_address%"
+  - "&7Whitelisted: &f%whitelist_status%"
+  - "&7Control Status: &f%control_status%"
+
+advanced-control-stats-global:
+  - "&8&m----------&r &8[ &eGlobal Statistics &8] &8&m----------&r"
+  - "&7Total: &f%total%"
+  - "&7Bans: &f%banned%"
+  - "&7Clean: &f%clean%"
+  - "&7Escaped: &f%escaped%"
+
+advanced-control-stats-player:
+  - "&8&m----------&r &8[ &ePlayer Statistics &8] &8&m----------&r"
+  - "&7Player: &f%player%"
+  - "&7Total: &f%total%"
+  - "&7Bans: &f%banned%"
+  - "&7Clean: &f%clean%"
+  - "&7Escaped: &f%escaped%"
+
+# Control Locations
+control-area-not-set: "&cControl area is not set! Use /%main_command% set area"
+control-return-not-set: "&cControl return location is not set! Use /%main_command% set return"
+control-area-already-set: "&cControl area is already set! Use /%main_command% delete area"
+control-return-already-set: "&cControl return location is already set! Use /%main_command% delete spawn"
+control-area-set: "&aControl area has been set!"
+control-return-set: "&aControl return location has been set!"
+control-area-deleted: "&cControl area has been deleted!"
+control-return-deleted: "&cControl return location has been deleted!"
+
+# ==========================================
+# Security System (Security)
+# ==========================================
+# Security Management
 whitelist-removed: "&aPlayer removed from whitelist: %player%"
 suspicious-cleared: "&aSuspicious activity cleared for: %player%"
 violations-cleared: "&aViolation count cleared for &f%player%"
-ip-no-players: "&7No players found on this IP."
+advanced-security-whitelist-already: "&c%player% is already whitelisted!"
+advanced-security-whitelist-added: "&a%player% added to whitelist."
+advanced-security-whitelist-not-found: "&c%player% not found in whitelist!"
+advanced-security-whitelist-removed: "&a%player% removed from whitelist."
+advanced-security-no-violations: "&aThis player has no violations."
+advanced-security-violation-record: "&b%player% &7- Violation Count: &c%count%"
 
-# Security Usage Messages
-whitelist-usage-add: "&cUsage: /control whitelist add <player> [reason]"
-whitelist-usage-remove: "&cUsage: /control whitelist remove <player>"
-suspicious-usage: "&cUsage: /control suspicious <player> [clear]"
-violations-usage: "&cUsage: /control violations <player> [clear]"
-ip-usage: "&cUsage: /control ip <ip>"
+# Security Alerts
+security-vpn-detected: "&c[Security] VPN detected: %player%"
+security-suspicious-activity: "&e[Security] Suspicious activity: %player% - %action%"
+security-auto-ban: "&c[Security] Automatic ban: %player% - Reason: %reason% - Duration: %duration% - Violation #%count%"
 
-# Security Status Lists
+# Security Display Lists
 whitelist-status-list:
   - "&8&m----------&r &8[ &eWhitelist Status &8] &8&m----------&r"
   - "&7Player: &f%player%"
@@ -61,152 +149,176 @@ violations-status-list:
   - "&7Violations: &f%count%"
   - "&7Last Ban Duration: &f%last_ban%"
 
+advanced-security-whitelist-list:
+  - "&8&m----------&r &8[ &eWhitelist List &8] &8&m----------&r"
+  - "&7Total: &f%count%"
+
+advanced-security-violations-list:
+  - "&8&m----------&r &8[ &eViolation Records &8] &8&m----------&r"
+  - "&7Total Players (Violations): &f%count%"
+
+advanced-security-violations-player:
+  - "&8&m----------&r &8[ &eViolation Records &8] &8&m----------&r"
+  - "&7Player: &f%player%"
+  - "&7Total Violations: &f%count%"
+
+# IP Information
+ip-no-players: "&7No players found on this IP."
 ip-info-list:
   - "&8&m----------&r &8[ &eIP Info &8] &8&m----------&r"
   - "&7IP Address: &f%ip%"
   - "&7Players: &f%count%"
 
-# Log Messages
+# ==========================================
+# Admin & System (Admin)
+# ==========================================
+# Version & Updates
+update-failed: "&cUpdate check failed: %error%"
+update-checking: "&7Checking for updates..."
+
+# Logs
+log-files-title: "&8&m----------&r &8[ &eLog Files Status &8] &8&m----------&r"
 log-files-enabled: "&7%type%: &aEnabled"
 log-files-disabled: "&7%type%: &cDisabled"
 log-files-cleared: "&aLog file '%type%' cleared successfully!"
 log-files-all-cleared: "&aAll log files cleared successfully!"
-log-files-usage: "&cUsage: /control logs clear <type>"
-log-files-types: "&7Types: moves, commands, chat, damage, items, control, general"
+log-files-types: "&7Types: movement, commands, chat, damage, items, control, general"
 
-# Discord Messages
+# Discord
 discord-disabled: "&cDiscord webhook is disabled in webhook.yml"
 discord-url-not-set: "&cPlease set your Discord webhook URL in webhook.yml"
 discord-sending: "&aSending Discord webhook test message..."
 discord-sent: "&aDiscord webhook test message sent!"
 
-# Control Messages
-control-started: "&a%player% is now under control!"
-control-finished-clean: "&a%player% has been released from control!"
-control-finished-ban: "&c%player% has been banned for cheating!"
-control-message: "&cYou are now under control by %player%!"
-control-chat: "&eYou can use /control chat join to join the control chat!"
-control-chat-join: "&aYou have joined the control chat!"
-control-chat-left: "&cYou have left the control chat!"
-already-in-control-chat: "&cYou are already in the control chat!"
-not-in-control-chat: "&cYou are not in the control chat!"
-player-joined-control-chat: "&a%player% has joined the control chat!"
-player-quit-control-chat: "&c%player% has left the control chat!"
-control-chat-player-quit: "&c%player% has left the server while under control!"
+# ==========================================
+# Usage & Help (Usage & Help)
+# ==========================================
+invalid-usage: "&cUsage: /%main_command% %usage%"
+advanced-control-usage-history: "&cUsage: /%main_command% history <player>"
+advanced-control-usage-notes: "&cUsage: /%main_command% notes <add/clear/list> <player> [note]"
+advanced-control-usage-stats: "&cUsage: /%main_command% stats <player>"
+advanced-control-usage-notes-add: "&cUsage: /%main_command% notes add <player> <note>"
+suspicious-usage: "&cUsage: /%main_command% suspicious <player> [clear]"
+violations-usage: "&cUsage: /%main_command% violations <player> [clear]"
+ip-usage: "&cUsage: /%main_command% ip <ip>"
+advanced-security-usage-whitelist: "&cUsage: /%main_command% whitelist <player> [add/remove/list] [reason]"
+advanced-security-usage-suspicious: "&cUsage: /%main_command% suspicious <player> [clear]"
+advanced-security-usage-violations: "&cUsage: /%main_command% violations <player> [clear]"
+log-files-usage: "&cUsage: /%main_command% logs clear <type>"
+error-set-arg: "&cPlease specify what you want to set! (area/return) /%main_command% set <area/return>"
+error-delete-arg: "&cPlease specify what you want to delete! (area/spawn) /%main_command% delete <area/spawn>"
 
-# Error Messages
-error-move: "&cYou cannot move while under control!"
-error-drop: "&cYou cannot drop items while under control!"
-error-damage-victim: "&cYou cannot damage %victim% while they are under control!"
-error-damage-attacker-you: "&c%attacker% tried to damage you but you are under control!"
-error-command: "&cYou cannot use commands while under control!"
-
-# Player Messages
-no-player: "&cPlease specify a player name!"
-offline-player: "&cPlayer is not online!"
-control-player-started: "&c%player% is already under control!"
-control-player-error: "&c%player% is not under control!"
-cannot-control-yourself: "&cYou cannot control yourself!"
-
-# Location Messages
-control-area-not-set: "&cControl area is not set! Use /control set area"
-control-return-not-set: "&cControl return location is not set! Use /control set return"
-control-area-already-set: "&cControl area is already set! Use /control delete area to remove it"
-control-return-already-set: "&cControl return location is already set! Use /control delete spawn to remove it"
-control-area-set: "&aControl area has been set!"
-control-return-set: "&aControl return location has been set!"
-control-area-deleted: "&cControl area has been deleted!"
-control-return-deleted: "&cControl return location has been deleted!"
-error-set-arg: "&cPlease specify what you want to set! (area/return)"
-error-delete-arg: "&cPlease specify what you want to delete! (area/spawn)"
-
-# Config Messages
-config-reloaded: "&aConfiguration has been reloaded!"
-
-# Commands Help
+# Help Sections
 commands-help:
   - "&8&m----------&r &8[ &eAntiEscape Commands &8] &8&m----------&r"
-  - "&e/control help &7- Show this help message"
-  - "&e/control version &7- Show plugin version and information"
-  - "&e/control reload &7- Reload plugin configuration"
-  - "&e/control chat <join/leave> &7- Join or leave control chat"
-  - "&e/control take <player> &7- Put a player under control"
-  - "&e/control end <player> [ban] &7- Release or ban a player from control"
-  - "&e/control set <area/return> &7- Set control area or return location"
-  - "&e/control delete <area/spawn> &7- Delete control area or return location"
-  - "&e/control discord test &7- Test Discord webhook"
-  - "&e/control logs <list/clear/clear-all> &7- Manage log files"
-  - "&e/control history <player> &7- Show control history"
-  - "&e/control notes <player> [add/clear/list] [note] &7- Manage player notes"
-  - "&e/control stats <player> &7- Show player statistics"
-  - "&e/control whitelist <player> [add/remove] [reason] &7- Manage whitelist"
-  - "&e/control suspicious <player> [clear] &7- Manage suspicious activity"
-  - "&e/control violations <player> [clear] &7- Manage violation count"
-  - "&e/control ip <ip> &7- Show players on IP address"
+  - "&e/%main_command% help &7- Show this help message"
+  - "&e/%main_command% version &7- Show plugin version and information"
+  - "&e/%main_command% reload &7- Reload plugin configuration"
+  - "&e/%main_command% chat [join <player> | leave] &7- Join or leave control chat"
+  - "&e/%main_command% take <player> &7- Put a player under control"
+  - "&e/%main_command% end <player> [ban] &7- Release or ban a player from control"
+  - "&e/%main_command% set <area/return> &7- Set control area or return location"
+  - "&e/%main_command% delete <area/spawn> &7- Delete control area or return location"
+  - "&e/%main_command% discord test &7- Test Discord webhook"
+  - "&e/%main_command% logs <list/clear/clear-all> &7- Manage log files"
+  - "&e/%main_command% history <player> &7- Show control history"
+  - "&e/%main_command% notes <player> [add/clear/list] [note] &7- Manage player notes"
+  - "&e/%main_command% stats <player> &7- Show player statistics"
+  - "&e/%main_command% whitelist <player> [add/remove] [reason] &7- Manage whitelist"
+  - "&e/%main_command% suspicious <player> [clear] &7- Manage suspicious activity"
+  - "&e/%main_command% violations <player> [clear] &7- Manage violation count"
+  - "&e/%main_command% ip <ip> &7- Show players on IP address"
 
-# Advanced Control History
-advanced-control-history-list:
-  - "&8&m----------&r &8[ &eControl History &8] &8&m----------&r"
-  - "&7Player: &f%player%"
-  - "&7Total Records: &f%count%"
-
-# Advanced Control Notes
-advanced-control-notes-list:
-  - "&8&m----------&r &8[ &eNotes &8] &8&m----------&r"
-  - "&7Player: &f%player%"
-
-# Advanced Control Statistics
-advanced-control-stats-list:
-  - "&8&m----------&r &8[ &eStatistics &8] &8&m----------&r"
-  - "&7Player: &f%player%"
-  - "&7Escape Attempts: &f%escape_attempts%"
-  - "&7Suspicious Activities: &f%suspicious_count%"
-  - "&7IP Address: &f%ip_address%"
-  - "&7Whitelisted: &f%whitelist_status%"
-  - "&7Control Status: &f%control_status%"
-
-# Logs Help
 logs-help:
   - "&8&m----------&r &8[ &eLog Management Commands &8] &8&m----------&r"
-  - "&e/control logs list &7- List all log files"
-  - "&e/control logs clear <type> &7- Clear specific log file"
-  - "&e/control logs clear-all &7- Clear all log files"
+  - "&e/%main_command% logs list &7- List all log files"
+  - "&e/%main_command% logs clear <type> &7- Clear specific log file"
+  - "&e/%main_command% logs clear-all &7- Clear all log files"
 
-# Discord Help
 discord-help:
   - "&8&m----------&r &8[ &eDiscord Commands &8] &8&m----------&r"
-  - "&e/control discord test &7- Test Discord webhook"
+  - "&e/%main_command% discord test &7- Test Discord webhook"
 
-# Control Help
 control-help:
   - "&8&m----------&r &8[ &eControl Commands &8] &8&m----------&r"
-  - "&e/control take <player> &7- Put a player under control"
-  - "&e/control end <player> [ban] &7- Release or ban a player from control"
-  - "&e/control chat <join/leave> &7- Join or leave control chat"
+  - "&e/%main_command% take <player> &7- Put a player under control"
+  - "&e/%main_command% end <player> [ban] &7- Release or ban a player from control"
+  - "&e/%main_command% chat [join <player> | leave] &7- Join or leave control chat"
 
-# Security Help
 whitelist-help:
   - "&8&m----------&r &8[ &eWhitelist Commands &8] &8&m----------&r"
-  - "&e/control whitelist <player> &7- Show whitelist status"
-  - "&e/control whitelist add <player> [reason] &7- Add player to whitelist"
-  - "&e/control whitelist remove <player> &7- Remove player from whitelist"
+  - "&e/%main_command% whitelist <player> &7- Show whitelist status"
+  - "&e/%main_command% whitelist add <player> [reason] &7- Add player to whitelist"
+  - "&e/%main_command% whitelist remove <player> &7- Remove player from whitelist"
 
 suspicious-help:
   - "&8&m----------&r &8[ &eSuspicious Activity Commands &8] &8&m----------&r"
-  - "&e/control suspicious <player> &7- Show suspicious activity count"
-  - "&e/control suspicious <player> clear &7- Clear suspicious activity count"
+  - "&e/%main_command% suspicious <player> &7- Show suspicious activity count"
+  - "&e/%main_command% suspicious <player> clear &7- Clear suspicious activity count"
 
 violations-help:
-  - "&8&m----------&r &8[ &eViolations Commands &8] &8&m----------&r"
-  - "&e/control violations <player> &7- Show violation count"
-  - "&e/control violations <player> clear &7- Clear violation count"
+  - "&8&m----------&r &8[ &eViolation Commands &8] &8&m----------&r"
+  - "&e/%main_command% violations <player> &7- Show violation count"
+  - "&e/%main_command% violations <player> clear &7- Clear violation count"
 
 ip-help:
   - "&8&m----------&r &8[ &eIP Commands &8] &8&m----------&r"
-  - "&e/control ip <ip> &7- Show players on IP address"
+  - "&e/%main_command% ip <ip> &7- Show players on IP address"
 
-# Location Help
 location-help:
   - "&8&m----------&r &8[ &eLocation Commands &8] &8&m----------&r"
-  - "&e/control set <area/return> &7- Set control area or return location"
-  - "&e/control delete <area/spawn> &7- Delete control area or return location" 
+  - "&e/%main_command% set <area/return> &7- Set control area or return location"
+  - "&e/%main_command% delete <area/spawn> &7- Delete control area or return location"
+
+# ==========================================
+# Aliases & Sub-arguments (System)
+# ==========================================
+# Command Aliases
+command-aliases:
+  chat: ["chat", "talk"]
+  delete: ["delete", "remove", "del"]
+  discord: ["discord", "dc"]
+  end: ["end", "finish", "stop"]
+  help: ["help", "?"]
+  history: ["history", "past"]
+  ip: ["ip"]
+  logs: ["logs", "log"]
+  notes: ["notes", "note"]
+  reload: ["reload", "rl"]
+  set: ["set", "create"]
+  stats: ["stats", "statistics"]
+  suspicious: ["suspicious", "sus"]
+  take: ["take", "control"]
+  version: ["version", "ver"]
+  violations: ["violations", "violation"]
+  whitelist: ["whitelist", "wl", "safe"]
+
+# Main Command Aliases
+main-command-aliases: ["control", "anti", "ae"]
+
+# Sub-argument Aliases
+sub-arguments:
+  add: ["add", "create"]
+  remove: ["remove", "delete", "del"]
+  clear: ["clear", "reset"]
+  list: ["list", "show"]
+  area: ["area", "region"]
+  return: ["return", "back"]
+  spawn: ["spawn", "start"]
+  join: ["join", "enter"]
+  leave: ["leave", "exit"]
+  test: ["test"]
+  ban: ["ban"]
+  clear-all: ["clear-all", "reset-all"]
+  reload: ["reload", "rl"]
+  help: ["help", "h"]
+  stats: ["stats", "statistics"]
+  history: ["history"]
+  notes: ["notes"]
+  suspicious: ["suspicious"]
+  violations: ["violations"]
+  logs: ["logs"]
+  ip: ["ip"]
+  chat: ["chat"]
+  take: ["take"]
+  end: ["end"]

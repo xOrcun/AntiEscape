@@ -6,6 +6,7 @@ prefix: "&6ᴀɴᴛɪᴇѕᴄᴀᴘᴇ &8▸ &7"
 
 # Control Chat Settings
 control-prefix: "&8[&cControl Chat&8]&r &f%player%&7: &f%message%"
+control-spy-format: "&8[&eS:%target%&8] &8[&cControl Chat&8]&r &f%player%&7: &f%message%"
 
 # Location Settings
 control-location: "none"
@@ -47,12 +48,6 @@ logging:
         location-info: true # Include location information (true/false)
         detailed-info: true # Include detailed information (true/false)
     
-    # Log rotation settings
-    rotation:
-        enabled: true # Enable log rotation (true/false)
-        max-size: "10MB" # Maximum file size before rotation
-        max-files: 5 # Maximum number of backup files to keep
-        compress: true # Compress old log files (true/false)
 
 # Advanced Control System Settings
 advanced-control:
@@ -91,8 +86,6 @@ advanced-control:
         action-bar: true # Show action bar notifications (true/false)
         title: true # Show title notifications (true/false)
         sound: true # Play sound effects (true/false)
-        particles: true # Show particle effects (true/false)
-        boss-bar: true # Show boss bar (true/false)
 
 # Advanced Security System Settings
 advanced-security:
@@ -102,9 +95,6 @@ advanced-security:
     ip-control:
         enabled: true # Enable IP address control (true/false)
         check-on-join: true # Check IP on player join (true/false)
-        check-on-control: true # Check IP when starting control (true/false)
-        allowed-countries: [] # List of allowed country codes (empty = all)
-        blocked-countries: [] # List of blocked country codes
         max-accounts-per-ip: 3 # Maximum accounts per IP address
     
     # VPN/Proxy Detection
@@ -117,10 +107,11 @@ advanced-security:
     
     # Suspicious Activity Detection
     suspicious-activity:
-        enabled: false # Enable suspicious activity detection (true/false)
+        enabled: true # Enable suspicious activity detection (true/false)
         rapid-movement: true # Detect rapid movement patterns (true/false)
         rapid-commands: true # Detect rapid command usage (true/false)
         rapid-chat: true # Detect rapid chat messages (true/false)
+        rapid-combat: true # Detect rapid combat actions (true/false)
         threshold: 5 # Number of actions before flagging as suspicious
         time-window: 10 # Time window in seconds for suspicious activity
     
@@ -129,16 +120,15 @@ advanced-security:
         enabled: true # Enable automatic ban system (true/false)
         escape-attempts: 3 # Number of escape attempts before auto-ban
         suspicious-activity: 5 # Number of suspicious activities before auto-ban
-        vpn-usage: 1 # Number of VPN detections before auto-ban
         
         # Normal ban settings (for security violations)
         normal-ban:
-            duration: "1d" # Ban duration for normal violations (1d, 1w, 1m, 1y, permanent)
+            duration: "1d" # Ban duration for normal violations (1d, 1w, 1mo, 1y, permanent)
             reason: "Security violation detected" # Ban reason for normal violations
         
         # Escape ban settings (when player quits during control)
         escape-ban:
-            duration: "7d" # Ban duration for escape attempts (1d, 1w, 1m, 1y, permanent)
+            duration: "7d" # Ban duration for escape attempts (1d, 1w, 1mo, 1y, permanent)
             reason: "Escape attempt during control" # Ban reason for escape attempts
         
         # Ban command template
@@ -150,6 +140,9 @@ advanced-security:
         notify-admins: true # Notify all online admins when auto-ban occurs
         log-to-console: true # Log auto-ban actions to console
         discord-webhook: true # Send Discord webhook for auto-ban events
+        
+        # Control command spam protection
+        control-spam-cooldown: 5 # Cooldown in seconds for /control take and /control end
         
         # Ban escalation (increase ban duration for repeat offenders)
         escalation:

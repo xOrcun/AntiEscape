@@ -9,3 +9,4 @@ commands:
   control:
     description: The main command for AntiEscape is /control
     usage: /control help
+    aliases: [anti, antiescape, ae]

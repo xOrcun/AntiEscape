@@ -1,4 +1,4 @@
-# 🚫 AntiEscape - Advanced Minecraft Player Control Plugin
+# 🚫 AntiEscape - Advanced Minecraft Player Control Plugin (v1.4-Beta)
 
 [![GitHub release](https://img.shields.io/github/v/release/xOrcun/AntiEscape?style=flat-square)](https://github.com/xOrcun/AntiEscape/releases)
 [![GitHub license](https://img.shields.io/github/license/xOrcun/AntiEscape?style=flat-square)](https://github.com/xOrcun/AntiEscape/blob/main/LICENSE)
@@ -70,7 +70,9 @@
 - **Easy Localization**: Simple structure for adding new languages
 - **Auto-Generation**: Language files created automatically
 
-### 📈 **Monitoring & Statistics**
+### 🔄 **Smart System Features**
+- **Dynamic Command Aliases**: Configure multiple main command aliases (e.g., /ae, /anti)
+- **Smart Tab Completion**: Context-aware command suggestions and player autocomplete
 - **Real-time Monitoring**: Track active controls and player status
 - **Performance Metrics**: Monitor plugin performance and usage
 - **bStats Integration**: Anonymous usage statistics
@@ -159,6 +161,14 @@ auto-ban:
 | `/control discord test` | Test Discord webhook | `antiescape.general` |
 | `/control reload` | Reload configuration | `antiescape.general` |
 | `/control version` | Show plugin information | `antiescape.general` |
+
+### 🔄 **Dynamic Command Aliases**
+The plugin now supports dynamic main command aliases that can be configured in your language files (`en.yml`, `tr.yml`, etc.). Default aliases include:
+- `/control` (Primary)
+- `/anti`
+- `/ae`
+
+You can add your own aliases in the `main-command-aliases` section of the language file.
 
 ---
 

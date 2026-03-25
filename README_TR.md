@@ -1,4 +1,4 @@
-# 🚫 AntiEscape - Gelişmiş Minecraft Oyuncu Kontrol Eklentisi
+# 🚫 AntiEscape - Gelişmiş Minecraft Oyuncu Kontrol Eklentisi (v1.4-Beta)
 
 [![GitHub release](https://img.shields.io/github/v/release/xOrcun/AntiEscape?style=flat-square)](https://github.com/xOrcun/AntiEscape/releases)
 [![GitHub license](https://img.shields.io/github/license/xOrcun/AntiEscape?style=flat-square)](https://github.com/xOrcun/AntiEscape/blob/main/LICENSE)
@@ -70,9 +70,11 @@
 - **Kolay Lokalizasyon**: Yeni diller eklemek için basit yapı
 - **Otomatik Oluşturma**: Dil dosyaları otomatik olarak oluşturulur
 
-### 📈 **İzleme ve İstatistikler**
-- **Gerçek Zamanlı İzleme**: Aktif kontrolleri ve oyuncu durumunu takip et
-- **Performans Metrikleri**: Eklenti performansını ve kullanımını izle
+### 🔄 **Akıllı Sistem Özellikleri**
+- **Dinamik Komut Takma Adları**: Birden fazla ana komut aliası yapılandırın (örn. /ae, /anti)
+- **Akıllı Tab Tamamlama**: Bağlama duyarlı komut önerileri ve oyuncu otomatik tamamlama
+- **Gerçek Zamanlı İzleme**: Aktif kontrolleri ve oyuncu durumunu takip edin
+- **Performans Metrikleri**: Eklenti performansını ve kullanımını izleyin
 - **bStats Entegrasyonu**: Anonim kullanım istatistikleri
 - **Güncelleme Kontrolü**: Otomatik sürüm kontrolü ve bildirimler
 
@@ -164,6 +166,14 @@ auto-ban:
 | `/control discord test` | Discord webhook'unu test et | `antiescape.general` |
 | `/control reload` | Yapılandırmayı yeniden yükle | `antiescape.general` |
 | `/control version` | Eklenti bilgilerini göster | `antiescape.general` |
+
+### 🔄 **Dinamik Komut Takma Adları**
+Eklenti artık dil dosyalarınızda (`en.yml`, `tr.yml`, vb.) yapılandırılabilen dinamik ana komut aliaslarını desteklemektedir. Varsayılan aliaslar:
+- `/control` (Birincil)
+- `/anti`
+- `/ae`
+
+Kendi aliaslarınızı dil dosyasındaki `main-command-aliases` bölümüne ekleyebilirsiniz.
 
 ---
 
@@ -458,7 +468,13 @@ mvn clean package
 
 ## 📋 **Değişiklik Geçmişi**
 
-### 🆕 **Sürüm 1.3-Beta**
+### 🆕 **Sürüm 1.4-Beta**
+- **Dinamik Komut Takma Adları**: Ana komut için yapılandırılabilir aliaslar (/ae, /anti vb.) eklendi.
+- **Performans İyileştirmeleri**: Komut işleme ve veri yönetimi optimize edildi.
+- **Hata Düzeltmeleri**: Tab tamamlama ve mesaj formatlama sorunları giderildi.
+- **Gelişmiş Yapılandırma**: Yeni ayarlar ve esnek mesaj sistemi eklendi.
+
+### 🔄 **Sürüm 1.3-Beta**
 - **Gelişmiş Kontrol Sistemi**: Oturum yönetimi, geçmiş takibi, oyuncu notları
 - **Gelişmiş Güvenlik Sistemi**: IP kontrolü, VPN tespiti, şüpheli aktivite izleme
 - **Kapsamlı Loglama**: Her olay türü için ayrı log dosyaları
