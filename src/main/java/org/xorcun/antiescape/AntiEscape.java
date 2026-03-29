@@ -16,6 +16,7 @@ import org.xorcun.antiescape.managers.LogManager;
 import org.xorcun.antiescape.managers.DiscordManager;
 import org.xorcun.antiescape.managers.AdvancedControlManager;
 import org.xorcun.antiescape.managers.AdvancedSecurityManager;
+import org.xorcun.antiescape.managers.MStats;
 import org.xorcun.antiescape.UpdateSystem.JoinEvent;
 import org.xorcun.antiescape.UpdateSystem.UpdateChecker;
 import org.xorcun.antiescape.commands.CommandManager;
@@ -43,6 +44,7 @@ public class AntiEscape extends JavaPlugin {
     private AdvancedControlManager advancedControlManager;
     private AdvancedSecurityManager advancedSecurityManager;
     private UpdateChecker updateChecker;
+    private MStats mStats;
 
     // --- GETTERS & SETTERS FOR MODULAR COMMANDS --- //
     public Location getControlArea() { return controlArea; }
@@ -152,6 +154,8 @@ public class AntiEscape extends JavaPlugin {
 
         int pluginId = 23459; 
         new Metrics(this, pluginId);
+
+        mStats = new MStats(this);
     }
 
     @Override
@@ -159,7 +163,7 @@ public class AntiEscape extends JavaPlugin {
         if (advancedSecurityManager != null) {
             advancedSecurityManager.onDisable();
         }
-        
+
         bannedMap.clear();
         
         Bukkit.getConsoleSender().sendMessage("§8[§eAntiEscape§8] §cPlugin deactivated!");

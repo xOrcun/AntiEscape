@@ -60,7 +60,9 @@ public ChatCommand(AntiEscape plugin) {
         if (args.length >= 3 && isArg(args[1], "join")) {
             Player target = Bukkit.getPlayer(args[2]);
             if (target == null || !plugin.getControlStatusMap().containsKey(target.getUniqueId())) {
-                player.sendMessage(plugin.getMessageFileManager().getLangMessage("control-player-error"));
+                String targetName = (target != null) ? target.getName() : args[2];
+                player.sendMessage(plugin.getMessageFileManager().getLangMessage("control-player-error")
+                        .replace("%player%", targetName));
                 return;
             }
 

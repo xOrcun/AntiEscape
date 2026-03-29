@@ -34,7 +34,7 @@ control-finished-clean: "&b%player% &fisimli oyuncu hile kontrolünden temiz ç�
 control-finished-ban: "&b%player% &fisimli oyuncu hileden yasaklandı!"
 control-message: "&b%player% &ftarafından hile kontrolüne alındın! Oyundan çıkarsan yasaklanacaksın, lütfen yetkilinin dediklerini uygulayın."
 control-player-started: "&e%player% &fzaten kontrolde."
-control-player-error: "&cOyuncu kontrolde değil."
+control-player-error: "&c%player% &foyuncusu kontrolde değil."
 cannot-control-yourself: "&cKendini kontrole alamazsın."
 control-cooldown-error: "&cTekrar kullanmak için %seconds% saniye beklemelisin!"
 

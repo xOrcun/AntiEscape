@@ -291,8 +291,8 @@ public class AdvancedControlManager {
             startAutoReleaseTask(target);
         }
         
-        showNotifications(target, "control-start");
-        showNotifications(controller, "control-start-controller");
+        showNotifications(target, "control-start", controller.getName());
+        showNotifications(controller, "control-start-controller", target.getName());
         
         plugin.debug("Advanced control session started: " + target.getName());
     }
@@ -315,7 +315,8 @@ public class AdvancedControlManager {
             
             cancelTasks(targetUUID);
             
-            showNotifications(target, "control-end");
+            Player controller = Bukkit.getPlayer(session.getController());
+            showNotifications(target, "control-end", controller != null ? controller.getName() : "Staff");
             
             plugin.debug("Advanced control session ended: " + target.getName());
         }
@@ -553,7 +554,7 @@ public class AdvancedControlManager {
             BukkitTask task = new BukkitRunnable() {
                 @Override
                 public void run() {
-                    showNotifications(player, "control-warning");
+                    showNotifications(player, "control-warning", "");
                 }
             }.runTaskLater(plugin, (maxDuration - warningTime) * 20L);
             
@@ -596,7 +597,7 @@ public class AdvancedControlManager {
         }
     }
 
-    private void showNotifications(Player player, String type) {
+    private void showNotifications(Player player, String type, String otherPlayerName) {
         if (!notificationsEnabled) return;
 
         switch (type) {
@@ -604,15 +605,24 @@ public class AdvancedControlManager {
                 if (titlesEnabled) {
                     player.sendTitle(
                         plugin.getMessageFileManager().getLangMessage("title-control-start"),
-                        plugin.getMessageFileManager().getLangMessage("subtitle-control-start"),
+                        plugin.getMessageFileManager().getLangMessage("subtitle-control-start")
+                            .replace("%player%", otherPlayerName),
                         10, 70, 20
                     );
                 }
                 if (actionBarEnabled) {
-                    player.sendMessage(plugin.getMessageFileManager().getLangMessage("control-message").replace("%player%", "Staff"));
+                    player.sendMessage(plugin.getMessageFileManager().getLangMessage("control-message")
+                        .replace("%player%", otherPlayerName));
                 }
                 if (soundEnabled) {
                     player.playSound(player.getLocation(), "entity.enderdragon.growl", 1.0f, 0.5f);
+                }
+                break;
+                
+            case "control-start-controller":
+                if (titlesEnabled) {
+                    player.sendMessage(plugin.getMessageFileManager().getLangMessage("control-player-started-controller")
+                        .replace("%player%", otherPlayerName));
                 }
                 break;
                 
@@ -629,7 +639,8 @@ public class AdvancedControlManager {
                 if (titlesEnabled) {
                     player.sendTitle(
                         plugin.getMessageFileManager().getLangMessage("title-control-end"),
-                        plugin.getMessageFileManager().getLangMessage("subtitle-control-end"),
+                        plugin.getMessageFileManager().getLangMessage("subtitle-control-end")
+                            .replace("%player%", otherPlayerName),
                         10, 70, 20
                     );
                 }
@@ -674,7 +685,7 @@ public class AdvancedControlManager {
         plugin.debug("History added: " + controllerName + " -> " + targetName + " (" + dateFormat.format(new Date(startTime)) + " - " + dateFormat.format(new Date(endTime)) + ")");
     }
 
-    private void autoBanPlayer(Player player, String reason, String duration) {
+    public void autoBanPlayer(Player player, String reason, String duration) {
         if (!plugin.getConfig().getBoolean("advanced-security.auto-ban.enabled", true)) return;
         
         String banCommand = plugin.getConfig().getString("advanced-security.auto-ban.ban-command");

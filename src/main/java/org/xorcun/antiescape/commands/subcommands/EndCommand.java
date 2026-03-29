@@ -51,25 +51,18 @@ public EndCommand(AntiEscape plugin) {
 
         Player hedef = Bukkit.getPlayer(args[1]);
         if (hedef == null || !plugin.getControlStatusMap().containsKey(hedef.getUniqueId())) {
-            player.sendMessage(plugin.getMessageFileManager().getLangMessage("control-player-error"));
+            String targetName = (hedef != null) ? hedef.getName() : args[1];
+            player.sendMessage(plugin.getMessageFileManager().getLangMessage("control-player-error")
+                    .replace("%player%", targetName));
             return;
         }
 
         if (args.length == 3 && isArg(args[2], "ban")) {
-            String banCommand = plugin.getConfig().getString("ban-command");
-            if (banCommand != null) {
-                String banDuration = plugin.getConfig().getString("auto-ban.normal-ban.duration", "1d");
-                String banReason = plugin.getConfig().getString("auto-ban.normal-ban.reason", "Control violation");
+            String banDuration = plugin.getConfig().getString("advanced-security.auto-ban.normal-ban.duration", "1d");
+            String banReason = plugin.getConfig().getString("advanced-security.auto-ban.normal-ban.reason", "Control violation");
 
-                banCommand = banCommand
-                        .replace("%player%", hedef.getName())
-                        .replace("%duration%", banDuration)
-                        .replace("%reason%", banReason);
-
-                plugin.debug("Executing normal ban command: " + banCommand);
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), banCommand);
-                plugin.getBannedMap().put(hedef.getUniqueId(), true);
-            }
+            plugin.getAdvancedControlManager().autoBanPlayer(hedef, banReason, banDuration);
+            plugin.getBannedMap().put(hedef.getUniqueId(), true);
 
             cleanControlState(hedef, player, true);
 

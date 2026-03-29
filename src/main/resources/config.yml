@@ -118,7 +118,7 @@ advanced-security:
     # Auto Ban System
     auto-ban:
         enabled: true # Enable automatic ban system (true/false)
-        escape-attempts: 3 # Number of escape attempts before auto-ban
+        escape-attempts: 1 # Number of escape attempts before auto-ban (Recommended: 1)
         suspicious-activity: 5 # Number of suspicious activities before auto-ban
         
         # Normal ban settings (for security violations)
